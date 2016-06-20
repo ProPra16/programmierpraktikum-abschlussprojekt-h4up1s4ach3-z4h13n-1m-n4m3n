@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/programmierpraktikum-abschlussprojekt-h4up1s4ach3-z4h13n-1m-n4m3n.iml" filepath="$PROJECT_DIR$/.idea/programmierpraktikum-abschlussprojekt-h4up1s4ach3-z4h13n-1m-n4m3n.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/virtual-kata-lib.iml" filepath="$PROJECT_DIR$/.idea/modules/virtual-kata-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/virtual-kata-lib_main.iml" filepath="$PROJECT_DIR$/.idea/modules/virtual-kata-lib_main.iml" group="virtual-kata-lib" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/virtual-kata-lib_test.iml" filepath="$PROJECT_DIR$/.idea/modules/virtual-kata-lib_test.iml" group="virtual-kata-lib" />
+    </modules>
+  </component>
+</project>
