@@ -1,8 +1,9 @@
-package de.hzin.tddt;/**
- * Created by Aron on 20.06.2016.
- */
+package de.hzin.tddt;
 
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -13,6 +14,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        Group root = new Group();
+        primaryStage.setScene(new Scene(root,100,100));
+        primaryStage.show();
     }
 }
