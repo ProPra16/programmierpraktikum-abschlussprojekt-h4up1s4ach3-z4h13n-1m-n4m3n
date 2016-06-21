@@ -2,9 +2,9 @@ group 'com.github.propra16.hzin'
 version '1.0.0'
 
 apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
+compileJava {
+    sourceCompatibility = '1.8'
+}
 repositories {
     mavenCentral()
 }
