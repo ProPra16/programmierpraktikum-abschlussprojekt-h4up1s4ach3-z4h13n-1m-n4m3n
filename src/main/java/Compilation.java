@@ -7,23 +7,44 @@ import vk.core.internal.InternalCompiler;
  * Created by julius on 24.06.16.
  */
 public class Compilation {
+    private String[] usedClasses;
+    private TestResult testResult;
+    private CompilerResult compilerResult;
+    private InternalCompiler compiler;
+    private CompilationUnit[] cus;
 
-    public Compilation(){
-        CompilationUnit[] unit = new CompilationUnit[2];
-        unit[0] = new CompilationUnit("LeapYear", "public class LeapYear {\n  public static boolean isLeapYear(int year) {\n    if (year % 400 == 0) return true;\n    if (year % 100 == 0) return false;\n    if (year % 4 == 0) return true;\n    return false;\n  }\n}",false);
-        unit[1] = new CompilationUnit("LeapYearTest", "import static org.junit.Assert.*;\nimport org.junit.*;\n\npublic class LeapYearTest {\n    @Test\n    public void testone()  {\n        int input = 1;\n        assertEquals(false, LeapYear.isLeapYear(input));\n    }\n    @Test\n    public void multi()  {\n        int input = 800;\n        assertEquals(true, LeapYear.isLeapYear(input));\n    }\n    @Test\n    public void isleap()  {\n        int input = 4;\n        assertEquals(true, LeapYear.isLeapYear(input));\n    }\n    @Test\n    public void isleapmult()  {\n        int input = 16;\n        assertEquals(true, LeapYear.isLeapYear(input));\n    }\n    @Test\n    public void hundredexept()  {\n        int input = 200;\n        assertEquals(false, LeapYear.isLeapYear(input));\n    }    \n}\n", true);
-        InternalCompiler comp = new InternalCompiler(unit);
-        comp.compileAndRunTests();
-        comp.getClass();
-        CompilerResult compilerResult = comp.getCompilerResult();
-        TestResult testResult = comp.getTestResult();
+    public Compilation(String[] classNames){
+        usedClasses = classNames;
+        readCus();
+        runCompilation();
+    }
+
+    public void runCompilation(){
+        compiler = new InternalCompiler(cus);
+        compiler.compileAndRunTests();
+        compiler.getClass();
+        compilerResult = compiler.getCompilerResult();
+        testResult = compiler.getTestResult();
         if(compilerResult.hasCompileErrors()){
-            System.out.println(compilerResult.getCompilerErrorsForCompilationUnit(unit[0]));
+            for(int i = 0; i < cus.length; i++){
+                System.out.println(compilerResult.getCompilerErrorsForCompilationUnit(cus[i]));
+            }
         } else {
             System.out.println("Successful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
             if(testResult.getNumberOfFailedTests() >= 1){
                 System.out.println(testResult.getTestFailures());
             }
+        }
+    }
+
+    private void readCus(){
+        cus = new CompilationUnit[usedClasses.length];
+        Filehandler fileHandle;
+        for(int i = 0; i < usedClasses.length; i++){
+            fileHandle = new Filehandler(usedClasses[i]);
+            fileHandle.load();
+            cus[i] = new CompilationUnit(usedClasses[i], fileHandle.getContent(), fileHandle.getisTest());
+            System.out.println(fileHandle.getContent());
         }
     }
 }
