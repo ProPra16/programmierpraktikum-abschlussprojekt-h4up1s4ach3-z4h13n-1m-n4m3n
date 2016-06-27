@@ -21,7 +21,6 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TDDT");
-      //  FXMLLoader loader = new FXMLLoader();
         menupane= FXMLLoader.load(getClass().getResource("/SceneBuilderMenu.fxml"));
         Scene scene = new Scene(menupane);
         primaryStage.setScene(scene);
