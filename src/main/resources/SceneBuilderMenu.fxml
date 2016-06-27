@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<BorderPane maxHeight="1092.0" maxWidth="1400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.hzin.tddt.Menu">
+    <center>
+        <Pane prefHeight="57.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuButton mnemonicParsing="false" text="MenuButton">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Open exercise"/>
+                        <MenuItem mnemonicParsing="false" text="Save Status"/>
+                        <MenuItem mnemonicParsing="false" text="Load Status"/>
+                        <MenuItem mnemonicParsing="false" text="Help"/>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </MenuButton>
+                <Label layoutX="894.0" layoutY="34.0" text="Label"/>
+                <Label layoutX="6.0" layoutY="6.0" text="Label"/>
+            </children>
+        </Pane>
+    </center>
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Open exercise"/>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>
