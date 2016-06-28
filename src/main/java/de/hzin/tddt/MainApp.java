@@ -22,6 +22,8 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TDDT");
         menupane= FXMLLoader.load(getClass().getResource("/SceneBuilderMenu.fxml"));
+        System.out.println(getClass().getResource("/SceneBuilderMenu.fxml").toString());
+
         Scene scene = new Scene(menupane);
         primaryStage.setScene(scene);
         primaryStage.show();
