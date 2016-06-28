@@ -48,4 +48,8 @@ public class Compilation {
             cus[i] = new CompilationUnit(usedClasses[i], fileHandle.getContent(), fileHandle.getisTest());
         }
     }
+
+    private void setText(){
+
+    }
 }
