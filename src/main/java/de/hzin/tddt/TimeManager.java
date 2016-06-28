@@ -10,20 +10,18 @@ import javafx.util.Duration;
 /**
  * Created by Rafael on 28.06.2016.
  */
-public class TimeManager {
+public class TimeManager extends Menu{
+
 
     Timeline time;
     int sekunden;
-
-    @FXML
-    public Label timecounter;
 
 
     public void starteTimer() {
         sekunden =0;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             sekunden++;
-            timecounter.setText(String.valueOf(sekunden));
+            timecounter.setText("Zeit:" +String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
@@ -40,9 +38,9 @@ public class TimeManager {
             sekunden--;
             if(sekunden ==0){
                 stopZeit();
-                timecounter.setText(String.valueOf(sekunden));
+                timecounter.setText("Zeit:" +String.valueOf(sekunden));
             }
-            timecounter.setText(String.valueOf(sekunden));
+            timecounter.setText("Zeit:" +String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
