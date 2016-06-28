@@ -13,16 +13,17 @@ import javafx.util.Duration;
 public class TimeManager {
 
     Timeline time;
+    int sekunden;
 
     @FXML
-    private Label timecounter;
+    public Label timecounter;
 
 
     public void starteTimer() {
-        int Sekunden=0;
+        sekunden =0;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Sekunden++;
-            timecounter.setText(String.valueOf(Sekunden));
+            sekunden++;
+            timecounter.setText(String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
@@ -34,14 +35,14 @@ public class TimeManager {
     }
 
     public void startebabystepTimer(){
-        int Sekunden = 180;
+        sekunden = 180;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            Sekunden--;
-            if(Sekunden==0){
+            sekunden--;
+            if(sekunden ==0){
                 stopZeit();
-                timecounter.setText(String.valueOf(Sekunden));
+                timecounter.setText(String.valueOf(sekunden));
             }
-            timecounter.setText(String.valueOf(Sekunden));
+            timecounter.setText(String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
