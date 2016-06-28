@@ -1,48 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<BorderPane maxHeight="1092.0" maxWidth="1400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0"
-            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="de.hzin.tddt.Menu">
-    <center>
-        <Pane prefHeight="57.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-            <children>
-                <MenuButton mnemonicParsing="false" text="MenuButton">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Open exercise"/>
-                        <MenuItem mnemonicParsing="false" text="Save Status"/>
-                        <MenuItem mnemonicParsing="false" text="Load Status"/>
-                        <MenuItem mnemonicParsing="false" text="Help"/>
-                        <MenuItem mnemonicParsing="false" text="About"/>
-                    </items>
-                </MenuButton>
-                <Label layoutX="894.0" layoutY="34.0" text="Label"/>
-                <Label layoutX="6.0" layoutY="6.0" text="Label"/>
-            </children>
-        </Pane>
-    </center>
+
+<BorderPane maxHeight="1092.0" maxWidth="1400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hzin.tddt.Menu">
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
+        <MenuBar prefHeight="24.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Open exercise"/>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="Open exercise" />
+                        <MenuItem mnemonicParsing="false" text="Save Status" />
+                  <MenuItem mnemonicParsing="false" text="Load Status" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About"/>
+                        <MenuItem mnemonicParsing="false" text="About" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
     </top>
+   <right>
+      <VBox prefHeight="555.0" prefWidth="202.0" spacing="10.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="37.0" prefWidth="100.0" text="Zeit :" />
+            <Label prefHeight="27.0" prefWidth="122.0" text="X / Y passed" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Phase: " />
+            <Label prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </right>
+   <bottom>
+      <Pane minWidth="-Infinity" prefHeight="200.0" prefWidth="1000.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollBar layoutX="977.0" layoutY="2.0" orientation="VERTICAL" prefHeight="196.0" prefWidth="18.0" />
+         </children></Pane>
+   </bottom>
+   <center>
+      <Pane maxWidth="-Infinity" prefHeight="555.0" prefWidth="772.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <ScrollBar layoutX="749.0" layoutY="2.0" orientation="VERTICAL" prefHeight="551.0" prefWidth="19.0" />
+         </children>
+      </Pane>
+   </center>
 </BorderPane>
