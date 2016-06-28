@@ -8,5 +8,4 @@ public class Menu {
     @FXML
     public static Label timecounter= new Label("Zeit");
 
-
 }
