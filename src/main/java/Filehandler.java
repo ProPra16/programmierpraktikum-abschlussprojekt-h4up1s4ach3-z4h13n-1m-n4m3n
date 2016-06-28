@@ -11,7 +11,7 @@ class Filehandler{
 
     public Filehandler(String inFile){
         // Muss relativer Pfad werden!!!
-        path = "/home/julius/Dokumente/java/programmierpraktikum-abschlussprojekt-h4up1s4ach3-z4h13n-1m-n4m3n/src/main/java/" + inFile + ".java";
+        path = "Catalog/" + inFile + ".java";
         className = inFile;
     }
 
@@ -27,7 +27,7 @@ class Filehandler{
                 content = content + line + "\n";
             }
             reader.close();
-            System.out.print(content);
+            //System.out.print(content);
         }
         catch (Exception e){
             System.out.println("Reading Error!");
@@ -52,5 +52,9 @@ class Filehandler{
 
     public boolean getisTest(){
         return isTest;
+    }
+
+    public void pwd(){
+        System.out.print(System.getProperty("user.dir"));
     }
 }

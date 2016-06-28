@@ -30,7 +30,7 @@ public class Compilation {
                 System.out.println(compilerResult.getCompilerErrorsForCompilationUnit(cus[i]));
             }
         } else {
-            System.out.println("Successful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
+            System.out.println("Successfully Compiled\nSuccessful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
             if(testResult.getNumberOfFailedTests() >= 1){
                 System.out.println(testResult.getTestFailures());
             }
@@ -44,7 +44,6 @@ public class Compilation {
             fileHandle = new Filehandler(usedClasses[i]);
             fileHandle.load();
             cus[i] = new CompilationUnit(usedClasses[i], fileHandle.getContent(), fileHandle.getisTest());
-            System.out.println(fileHandle.getContent());
         }
     }
 }
