@@ -13,11 +13,11 @@ import javafx.util.Duration;
 public class TimeManager extends Menu{
 
 
-    Timeline time;
-    int sekunden;
+    static Timeline time;
+    static int sekunden;
 
 
-    public void starteTimer() {
+    public static void starteTimer() {
         sekunden =0;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             sekunden++;

@@ -25,6 +25,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(menupane);
         primaryStage.setScene(scene);
         primaryStage.show();
+        TimeManager.starteTimer();
 
     }
 }

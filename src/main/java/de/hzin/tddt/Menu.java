@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 public class Menu {
 
     @FXML
-    public Label timecounter;
+    public static Label timecounter= new Label("Zeit");
 
 
 }
