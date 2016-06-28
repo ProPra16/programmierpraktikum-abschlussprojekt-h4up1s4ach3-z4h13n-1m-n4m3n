@@ -1,6 +1,7 @@
 package de.hzin.tddt;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,6 +26,12 @@ public class MainApp extends Application {
         System.out.println(getClass().getResource("/SceneBuilderMenu.fxml").toString());
 
         Scene scene = new Scene(menupane);
+        primaryStage.setOnCloseRequest(event -> {
+            event.consume();
+            if(ConfirmBox.display("EXIT","Are you sure?")) {
+                primaryStage.close();
+            }
+        });
         primaryStage.setScene(scene);
         primaryStage.show();
        // TimeManager.starteTimer();
