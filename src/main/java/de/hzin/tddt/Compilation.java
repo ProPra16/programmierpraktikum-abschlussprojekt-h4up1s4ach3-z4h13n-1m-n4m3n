@@ -1,3 +1,5 @@
+package de.hzin.tddt;
+
 import vk.core.api.CompilationUnit;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;

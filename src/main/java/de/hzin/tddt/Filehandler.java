@@ -1,4 +1,4 @@
-/**
+package de.hzin.tddt; /**
  * Created by julius on 27.06.16.
  */
 import java.io.*;
