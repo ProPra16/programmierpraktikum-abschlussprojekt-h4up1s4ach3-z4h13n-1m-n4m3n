@@ -3,15 +3,19 @@ package de.hzin.tddt;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
+import java.net.URISyntaxException;
 
 public class Menu {
 
     @FXML
-    public static Label timecounter= new Label("Zeit");
+    private BorderPane mainPane;
+
     @FXML
-    private Pane codePane;
+    public static Label timecounter= new Label("Zeit");
 
     @FXML
     private TextArea logTextArea;
@@ -19,7 +23,7 @@ public class Menu {
     CodeEditor codeEditor;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws URISyntaxException {
         codeEditor = new CodeEditor(
                 "import static org.junit.Assert.*;\n" +
                 "import org.junit.Test;\n" +
@@ -28,7 +32,10 @@ public class Menu {
                 "   public void testSomething() {\n" +
                 "   }\n" +
                 "}");
+
+        codeEditor.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        mainPane.setCenter(codeEditor);
+
         logTextArea.setText("Erfolg!");
-        codePane.getChildren().add(codeEditor);
     }
 }
