@@ -51,6 +51,5 @@ public class Compilation {
 
     private void setText(){
 
-
     }
 }
