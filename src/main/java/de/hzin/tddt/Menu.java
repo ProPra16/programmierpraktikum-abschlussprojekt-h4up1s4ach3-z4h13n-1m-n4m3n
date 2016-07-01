@@ -18,7 +18,7 @@ public class Menu {
     public static Label timecounter= new Label("Zeit");
 
     @FXML
-    private TextArea logTextArea;
+    public TextArea logTextArea;
 
     CodeEditor codeEditor;
 
@@ -37,5 +37,17 @@ public class Menu {
         mainPane.setCenter(codeEditor);
 
         logTextArea.setText("Erfolg!");
+
+        // Compiler Integration
+        String[] classes = new String[2];
+        classes[0] = "LeapYear";
+        classes[1] = "LeapYearTest";
+        compile(classes);
+    }
+
+    public void compile(String[] classes){
+        // Compiler Integration
+        Compilation compiler = new Compilation(classes, logTextArea);
+        compiler.runCompilation();
     }
 }
