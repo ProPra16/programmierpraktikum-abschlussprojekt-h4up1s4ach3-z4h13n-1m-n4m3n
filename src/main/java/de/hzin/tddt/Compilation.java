@@ -1,5 +1,6 @@
 package de.hzin.tddt;
 
+import javafx.scene.control.TextArea;
 import vk.core.api.CompilationUnit;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
@@ -14,9 +15,17 @@ public class Compilation {
     private CompilerResult compilerResult;
     private InternalCompiler compiler;
     private CompilationUnit[] cus;
+    private TextArea textArea;
 
     public Compilation(String[] classNames){
         usedClasses = classNames;
+        readCus();
+        runCompilation();
+    }
+
+    public Compilation(String[] classNames, TextArea guiOut){
+        usedClasses = classNames;
+        textArea = guiOut;
         readCus();
         runCompilation();
     }
@@ -32,6 +41,9 @@ public class Compilation {
                 System.out.println(compilerResult.getCompilerErrorsForCompilationUnit(cus[i]));
             }
         } else {
+            if(textArea!=null){
+                textArea.setText("Successfully Compiled\nSuccessful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
+            }
             System.out.println("Successfully Compiled\nSuccessful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
             if(testResult.getNumberOfFailedTests() >= 1){
                 System.out.println(testResult.getTestFailures());
@@ -47,6 +59,10 @@ public class Compilation {
             fileHandle.load();
             cus[i] = new CompilationUnit(usedClasses[i], fileHandle.getContent(), fileHandle.getisTest());
         }
+    }
+
+    private void setUsedClasses(String[] classes){
+        usedClasses = classes;
     }
 
     private void setText(){
