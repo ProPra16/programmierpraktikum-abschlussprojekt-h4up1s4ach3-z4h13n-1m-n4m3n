@@ -38,15 +38,14 @@ public class Menu {
 
         logTextArea.setText("Erfolg!");
 
+
+    }
+
+    public void compile(){
         // Compiler Integration
         String[] classes = new String[2];
         classes[0] = "LeapYear";
         classes[1] = "LeapYearTest";
-        compile(classes);
-    }
-
-    public void compile(String[] classes){
-        // Compiler Integration
         Compilation compiler = new Compilation(classes, logTextArea);
         compiler.runCompilation();
     }
