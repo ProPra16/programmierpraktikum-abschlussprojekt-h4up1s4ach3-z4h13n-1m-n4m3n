@@ -54,7 +54,11 @@
             <Button fx:id="refacBUT" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" text="Weiter zu REFACTOR" />
             <Button fx:id="redBUT" mnemonicParsing="false" prefHeight="25.0" prefWidth="207.0" text="Weiter zu RED" />
             <Label prefHeight="17.0" prefWidth="217.0" text="Phasenüberblick : " />
-            <ImageView fx:id="phasen" fitHeight="141.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="phasen" fitHeight="163.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="Phasenüberblick.jpg" />
+               </image></ImageView>
+                
          </children>
          <opaqueInsets>
             <Insets />

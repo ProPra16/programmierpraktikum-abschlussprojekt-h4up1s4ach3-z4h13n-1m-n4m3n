@@ -35,9 +35,6 @@ public class Menu {
     private Button compilationButton;
 
     @FXML
-    private ImageView phasen;
-
-    @FXML
     public TextArea logTextArea;
 
     CodeEditor codeEditor;
