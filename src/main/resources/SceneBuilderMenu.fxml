@@ -22,7 +22,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Open exercise" />
+                        <MenuItem mnemonicParsing="false" onAction="#starteTimer" text="Open exercise" />
                         <MenuItem mnemonicParsing="false" text="Save Status" />
                   <MenuItem mnemonicParsing="false" text="Load Status" />
                     </items>
@@ -34,7 +34,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#openfile" text="About" />
                     </items>
                 </Menu>
             </menus>
@@ -45,18 +45,18 @@
          <children>
             <Label fx:id="timecounter" prefHeight="37.0" prefWidth="224.0" />
             <Label prefHeight="27.0" prefWidth="122.0" text="X / Y passed" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="230.0" text="BabySteps aktivieren" />
+            <Button mnemonicParsing="false" onAction="#startebabystepTimer" prefHeight="25.0" prefWidth="230.0" text="BabySteps aktivieren" />
             <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Phase: " />
-            <Label prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
-            <Button fx:id="greenBUT" mnemonicParsing="false" prefHeight="25.0" prefWidth="201.0" text="Weiter zu GREEN" />
-            <Button fx:id="backredBUT" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Zurück zu RED" />
+            <Label fx:id="aktphase" prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
+            <Button mnemonicParsing="false" onAction="#green" prefHeight="25.0" prefWidth="201.0" text="Weiter zu GREEN" />
+            <Button fx:id="backredBUT" mnemonicParsing="false" onAction="#red" prefHeight="25.0" prefWidth="200.0" text="Zurück zu RED" />
             <Button fx:id="compilationButton" mnemonicParsing="false" onAction="#compile" prefHeight="25.0" prefWidth="200.0" text="Compile!" />
-            <Button fx:id="refacBUT" mnemonicParsing="false" prefHeight="25.0" prefWidth="220.0" text="Weiter zu REFACTOR" />
-            <Button fx:id="redBUT" mnemonicParsing="false" prefHeight="25.0" prefWidth="207.0" text="Weiter zu RED" />
+            <Button fx:id="refacBUT" mnemonicParsing="false" onAction="#refre" prefHeight="25.0" prefWidth="220.0" text="Weiter zu REFACTOR" />
+            <Button fx:id="redBUT" mnemonicParsing="false" onAction="#red" prefHeight="25.0" prefWidth="207.0" text="Weiter zu RED" />
             <Label prefHeight="17.0" prefWidth="217.0" text="Phasenüberblick : " />
-            <ImageView fx:id="phasen" fitHeight="163.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="342.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="Phasenüberblick.jpg" />
+                  <Image url="@Phasenüberblick.jpg" />
                </image></ImageView>
                 
          </children>
@@ -66,6 +66,6 @@
       </VBox>
    </right>
    <bottom>
-      <TextArea fx:id="logTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="logTextArea" editable="false" prefHeight="193.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

@@ -1,5 +1,8 @@
 package de.hzin.tddt;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
+import javax.xml.bind.TypeConstraintException;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Menu {
@@ -20,19 +28,7 @@ public class Menu {
     private Label timecounter;
 
     @FXML
-    private Button refacBUT;
-
-    @FXML
-    private Button greenBUT;
-
-    @FXML
-    private Button redBUT;
-
-    @FXML
-    private Button backredBUT;
-
-    @FXML
-    private Button compilationButton;
+    private Label aktphase;
 
     @FXML
     public TextArea logTextArea;
@@ -65,5 +61,71 @@ public class Menu {
         classes[1] = "LeapYearTest";
         Compilation compiler = new Compilation(classes, logTextArea);
         compiler.runCompilation();
+    }
+
+    static Timeline time;
+    static int sekunden;
+
+
+    public void starteTimer() {
+        sekunden =0;
+        time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            sekunden++;
+            timecounter.setText("Zeit:" +String.valueOf(sekunden));
+        }));
+        time.setCycleCount(Animation.INDEFINITE);
+        time.play();
+
+    }
+
+    public void stopZeit() {
+        time.stop();
+    }
+
+    public void startebabystepTimer(){
+        sekunden = 180;
+        time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            sekunden--;
+            if(sekunden ==0){
+                stopZeit();
+                timecounter.setText("Zeit:" +String.valueOf(sekunden));
+            }
+            timecounter.setText("Zeit:" +String.valueOf(sekunden));
+        }));
+        time.setCycleCount(Animation.INDEFINITE);
+        time.play();
+    }
+    public void green(){
+        if (time!=null) stopZeit();
+        aktphase.setText("GREEN ; Bearbeite deinen Code");
+        aktphase.setStyle("-fx-text-fill: green;");
+        starteTimer();
+    }
+    public void red(){
+        if (time!=null) stopZeit();
+        aktphase.setText("RED ; Bearbeite deine Tests");
+        aktphase.setStyle("-fx-text-fill: red;");
+        starteTimer();
+
+    }
+    public void refre(){
+        if (time!=null) stopZeit();
+        aktphase.setText("REFRACTOR ; Code verbessern");
+        aktphase.setStyle("-fx-text-fill: black;");
+        starteTimer();
+
+    }
+    public void openfile(){
+        File txtfile = new File("Help.txt");
+        if(txtfile.exists()){
+            if(Desktop.isDesktopSupported()){
+                try{
+                    Desktop.getDesktop().open(txtfile);
+                  }
+                catch(IOException e){
+                    e.printStackTrace();
+                 }
+            }
+        }
     }
 }

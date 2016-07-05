@@ -19,7 +19,7 @@ public class TimeManager {
         sekunden =0;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             sekunden++;
-        //    timecounter.setText("Zeit:" +String.valueOf(sekunden));
+          //  timecounter.setText("Zeit:" +String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
@@ -36,9 +36,9 @@ public class TimeManager {
             sekunden--;
             if(sekunden ==0){
                 stopZeit();
-            //    timecounter.setText("Zeit:" +String.valueOf(sekunden));
+         //       timecounter.setText("Zeit:" +String.valueOf(sekunden));
             }
-        //    timecounter.setText("Zeit:" +String.valueOf(sekunden));
+         //   timecounter.setText("Zeit:" +String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
