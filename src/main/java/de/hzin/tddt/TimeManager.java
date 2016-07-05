@@ -3,14 +3,12 @@ package de.hzin.tddt;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 /**
  * Created by Rafael on 28.06.2016.
  */
-public class TimeManager extends Menu{
+public class TimeManager {
 
 
     Timeline time;

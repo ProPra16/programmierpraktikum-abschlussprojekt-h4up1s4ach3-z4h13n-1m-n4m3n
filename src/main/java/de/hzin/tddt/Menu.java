@@ -1,8 +1,10 @@
 package de.hzin.tddt;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -15,7 +17,25 @@ public class Menu {
     private BorderPane mainPane;
 
     @FXML
-    public static Label timecounter= new Label("Zeit");
+    private Label timecounter;
+
+    @FXML
+    private Button refacBUT;
+
+    @FXML
+    private Button greenBUT;
+
+    @FXML
+    private Button redBUT;
+
+    @FXML
+    private Button backredBUT;
+
+    @FXML
+    private Button compilationButton;
+
+    @FXML
+    private ImageView phasen;
 
     @FXML
     public TextArea logTextArea;

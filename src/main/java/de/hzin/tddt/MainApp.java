@@ -22,8 +22,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TDDT");
-        menupane= FXMLLoader.load(getClass().getResource("/SceneBuilderMenu.fxml"));
-        System.out.println(getClass().getResource("/SceneBuilderMenu.fxml").toString());
+        menupane= FXMLLoader.load(getClass().getResource("/MainSceneMenu.fxml"));
+        System.out.println(getClass().getResource("/MainSceneMenu.fxml").toString());
 
         Scene scene = new Scene(menupane);
         primaryStage.setOnCloseRequest(event -> {
@@ -34,7 +34,6 @@ public class MainApp extends Application {
         });
         primaryStage.setScene(scene);
         primaryStage.show();
-       // TimeManager.starteTimer();
 
     }
 }
