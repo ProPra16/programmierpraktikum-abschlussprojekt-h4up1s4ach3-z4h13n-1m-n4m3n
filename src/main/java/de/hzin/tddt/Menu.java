@@ -12,12 +12,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
 
 import javax.xml.bind.TypeConstraintException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
 
 public class Menu {
 
@@ -37,7 +41,7 @@ public class Menu {
 
     @FXML
     public void initialize() throws URISyntaxException {
-        codeEditor = new CodeEditor(
+        /*codeEditor = new CodeEditor(
                 "import static org.junit.Assert.*;\n" +
                 "import org.junit.Test;\n" +
                 "public class RomanNumbersTest {\n" +
@@ -50,7 +54,18 @@ public class Menu {
 
         mainPane.setCenter(codeEditor);
 
-        logTextArea.setText("Erfolg!");
+        logTextArea.setText("Erfolg!");*/
+
+        CodeArea codeArea = new CodeArea();
+        codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
+
+        codeArea.richChanges()
+                .filter(ch -> !ch.getInserted().equals(ch.getRemoved())) // XXX
+                .subscribe(change -> {
+                    codeArea.setStyleSpans(0, computeHighlighting(codeArea.getText()));
+                });
+        mainPane.getStylesheets().add("java-keywords.css");
+        mainPane.setCenter(codeArea);
 
 
     }
