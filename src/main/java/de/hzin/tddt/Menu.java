@@ -47,6 +47,7 @@ public class Menu {
                 "}");
 
         codeEditor.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
+
         mainPane.setCenter(codeEditor);
 
         logTextArea.setText("Erfolg!");
