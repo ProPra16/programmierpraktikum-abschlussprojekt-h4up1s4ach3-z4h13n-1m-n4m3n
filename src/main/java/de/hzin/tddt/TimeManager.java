@@ -26,7 +26,7 @@ public class TimeManager {
 
     }
 
-    public void stopZeit() {
+    public void stopTimer() {
         time.stop();
     }
 
@@ -35,7 +35,7 @@ public class TimeManager {
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             sekunden--;
             if(sekunden ==0){
-                stopZeit();
+                stopTimer();
          //       timecounter.setText("Zeit:" +String.valueOf(sekunden));
             }
          //   timecounter.setText("Zeit:" +String.valueOf(sekunden));

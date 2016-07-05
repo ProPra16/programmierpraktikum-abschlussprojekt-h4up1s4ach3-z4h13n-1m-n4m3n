@@ -1,21 +1,19 @@
 package de.hzin.tddt;
 
+import de.hzin.tddt.objects.Exercises;
+import de.hzin.tddt.util.XMLHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
-import javax.xml.bind.TypeConstraintException;
+import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +21,7 @@ import java.net.URISyntaxException;
 
 import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
 
-public class Menu {
+public class MainWindowController {
 
     @FXML
     private BorderPane mainPane;
@@ -37,25 +35,9 @@ public class Menu {
     @FXML
     public TextArea logTextArea;
 
-    CodeEditor codeEditor;
 
     @FXML
     public void initialize() throws URISyntaxException {
-        /*codeEditor = new CodeEditor(
-                "import static org.junit.Assert.*;\n" +
-                "import org.junit.Test;\n" +
-                "public class RomanNumbersTest {\n" +
-                "   @Test\n" +
-                "   public void testSomething() {\n" +
-                "   }\n" +
-                "}");
-
-        codeEditor.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
-
-        mainPane.setCenter(codeEditor);
-
-        logTextArea.setText("Erfolg!");*/
-
         CodeArea codeArea = new CodeArea();
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
@@ -68,6 +50,14 @@ public class Menu {
         mainPane.setCenter(codeArea);
 
 
+        //XML Test
+        Exercises exercises = null;
+        try {
+            exercises = XMLHandler.unmarshal(new File("Catalog/aufgabe1.xml"));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        codeArea.replaceText(exercises.getExercises().get(0).getClasses().get(0).getCode());
     }
 
     public void compile(){

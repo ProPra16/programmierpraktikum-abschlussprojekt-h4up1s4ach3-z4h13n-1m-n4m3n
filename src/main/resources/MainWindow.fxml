@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainPane" maxHeight="1092.0" maxWidth="1400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hzin.tddt.Menu">
+<BorderPane fx:id="mainPane" maxHeight="1092.0" maxWidth="1400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hzin.tddt.MainWindowController">
     <top>
         <MenuBar prefHeight="24.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <menus>

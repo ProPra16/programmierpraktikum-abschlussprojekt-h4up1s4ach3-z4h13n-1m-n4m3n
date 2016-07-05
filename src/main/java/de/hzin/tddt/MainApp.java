@@ -1,8 +1,6 @@
 package de.hzin.tddt;
 
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +10,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 
     private static Stage primaryStage;
-    private Parent menupane;
+    private Parent mainPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,10 +21,10 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TDDT");
-        menupane= FXMLLoader.load(getClass().getResource("/SceneBuilderMenu.fxml"));
-        System.out.println(getClass().getResource("/SceneBuilderMenu.fxml").toString());
+        mainPane = FXMLLoader.load(getClass().getResource("/mainWindow.fxml"));
+        System.out.println(getClass().getResource("/mainWindow.fxml").toString());
 
-        Scene scene = new Scene(menupane);
+        Scene scene = new Scene(mainPane);
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
             if(ConfirmBox.display("EXIT","Are you sure?")) {
