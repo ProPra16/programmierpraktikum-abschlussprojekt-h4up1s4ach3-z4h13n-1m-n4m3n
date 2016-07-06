@@ -1,6 +1,7 @@
 package de.hzin.tddt;
 
 import de.hzin.tddt.objects.Exercises;
+import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.util.XMLHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -56,6 +57,7 @@ public class MainWindowController {
 
     public void onMenuOpenExercisePressed() {
         final FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("Catalog/"));
         fileChooser.setTitle("Öffne Übungsdatei");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Übungsdatei", "*.xml"));
 
@@ -70,6 +72,9 @@ public class MainWindowController {
         try {
             exercises = XMLHandler.unmarshal(file);
             codeArea.replaceText(exercises.getExercises().get(0).getClasses().get(0).getCode());
+
+            ExerciseView exerciseView = new ExerciseView(exercises.getExercises(), file.getName());
+            mainPane.setLeft(exerciseView);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

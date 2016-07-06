@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author Aron Weisermann
  */
-public class ExerciseClass {
+public class ExerciseClass implements ExerciseJavaFile{
 
     private String name;
     private String code;
