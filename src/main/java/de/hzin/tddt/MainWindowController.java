@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
@@ -35,10 +37,12 @@ public class MainWindowController {
     @FXML
     public TextArea logTextArea;
 
+    private CodeArea codeArea = new CodeArea();
+    private Timeline time;
+    private int sekunden;
 
     @FXML
     public void initialize() throws URISyntaxException {
-        CodeArea codeArea = new CodeArea();
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
         codeArea.richChanges()
@@ -48,19 +52,30 @@ public class MainWindowController {
                 });
         mainPane.getStylesheets().add("java-keywords.css");
         mainPane.setCenter(codeArea);
+    }
 
+    public void onMenuOpenExercisePressed() {
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Öffne Übungsdatei");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Übungsdatei", "*.xml"));
 
-        //XML Test
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            openExercise(file);
+        }
+    }
+
+    public void openExercise(File file) {
         Exercises exercises = null;
         try {
-            exercises = XMLHandler.unmarshal(new File("Catalog/aufgabe1.xml"));
+            exercises = XMLHandler.unmarshal(file);
+            codeArea.replaceText(exercises.getExercises().get(0).getClasses().get(0).getCode());
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        codeArea.replaceText(exercises.getExercises().get(0).getClasses().get(0).getCode());
     }
 
-    public void compile(){
+    public void compile() {
         // Compiler Integration
         String[] classes = new String[2];
         classes[0] = "LeapYear";
@@ -69,15 +84,12 @@ public class MainWindowController {
         compiler.runCompilation();
     }
 
-    static Timeline time;
-    static int sekunden;
-
 
     public void starteTimer() {
-        sekunden =0;
+        sekunden = 0;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             sekunden++;
-            timecounter.setText("Zeit:" +String.valueOf(sekunden));
+            timecounter.setText("Zeit:" + String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
@@ -88,49 +100,52 @@ public class MainWindowController {
         time.stop();
     }
 
-    public void startebabystepTimer(){
+    public void startebabystepTimer() {
         sekunden = 180;
         time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             sekunden--;
-            if(sekunden ==0){
+            if (sekunden == 0) {
                 stopZeit();
-                timecounter.setText("Zeit:" +String.valueOf(sekunden));
+                timecounter.setText("Zeit:" + String.valueOf(sekunden));
             }
-            timecounter.setText("Zeit:" +String.valueOf(sekunden));
+            timecounter.setText("Zeit:" + String.valueOf(sekunden));
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
     }
-    public void green(){
-        if (time!=null) stopZeit();
+
+    public void green() {
+        if (time != null) stopZeit();
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
         starteTimer();
     }
-    public void red(){
-        if (time!=null) stopZeit();
+
+    public void red() {
+        if (time != null) stopZeit();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
         starteTimer();
 
     }
-    public void refre(){
-        if (time!=null) stopZeit();
+
+    public void refre() {
+        if (time != null) stopZeit();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
         starteTimer();
 
     }
-    public void openfile(){
+
+    public void openfile() {
         File txtfile = new File("Help.txt");
-        if(txtfile.exists()){
-            if(Desktop.isDesktopSupported()){
-                try{
+        if (txtfile.exists()) {
+            if (Desktop.isDesktopSupported()) {
+                try {
                     Desktop.getDesktop().open(txtfile);
-                  }
-                catch(IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
-                 }
+                }
             }
         }
     }
