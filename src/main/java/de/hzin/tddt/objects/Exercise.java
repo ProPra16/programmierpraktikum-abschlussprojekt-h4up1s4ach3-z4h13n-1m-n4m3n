@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,13 @@ public class Exercise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<ExerciseJavaFile> getAllJavaFiles(){
+        List<ExerciseJavaFile> allJavaFilesList = new ArrayList<>();
+        allJavaFilesList.addAll(tests);
+        allJavaFilesList.addAll(classes);
+        return allJavaFilesList;
     }
 
     @XmlElementWrapper(name = "classes")

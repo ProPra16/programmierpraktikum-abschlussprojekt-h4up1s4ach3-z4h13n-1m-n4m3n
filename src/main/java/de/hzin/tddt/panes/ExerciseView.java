@@ -17,22 +17,16 @@ public class ExerciseView extends TitledPane {
     TitledPane[] exercisePanes;
     ListView listView = new ListView();
 
-    public ExerciseView(List<Exercise> exercises, String exerciseName) {
-        setText(exerciseName);
-
+    public ExerciseView(List<Exercise> exercises, String exercisesName) {
+        setText("Aktuelles " + exercisesName);
         exercisePanes = new TitledPane[exercises.size()];
-
         for (int i = 0; i < exercises.size(); i++) {
             ListView javaFilesListView = new ListView();
-            for(ExerciseJavaFile cur : exercises.get(i).getClasses())
+            for(ExerciseJavaFile cur : exercises.get(i).getAllJavaFiles())
             {
                 javaFilesListView.getItems().add(cur.getName());
             }
-            for(ExerciseJavaFile cur : exercises.get(i).getTests())
-            {
-                javaFilesListView.getItems().add(cur.getName());
-            }
-            exercisePanes[i] = new TitledPane(exercises.get(i).getName(),javaFilesListView);
+            exercisePanes[i] = new TitledPane("Übung: " + exercises.get(i).getName(),javaFilesListView);
         }
         VBox group = new VBox();
         group.getChildren().addAll(exercisePanes);
