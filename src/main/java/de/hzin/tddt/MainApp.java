@@ -21,8 +21,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TDDT");
-        mainPane = FXMLLoader.load(getClass().getResource("/mainWindow.fxml"));
-        System.out.println(getClass().getResource("/mainWindow.fxml").toString());
+        mainPane = FXMLLoader.load(getClass().getResource("/MainWindow.fxml"));
+        System.out.println(getClass().getResource("/MainWindow.fxml").toString());
 
         Scene scene = new Scene(mainPane);
         primaryStage.setOnCloseRequest(event -> {
