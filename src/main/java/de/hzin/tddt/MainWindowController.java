@@ -73,7 +73,7 @@ public class MainWindowController {
         try {
             exercises = XMLHandler.unmarshal(file);
             codeArea.replaceText(exercises.getExercisesList().get(0).getClasses().get(0).getCode());
-            ExerciseView exerciseView = new ExerciseView(exercises.getExercisesList(), file.getName());
+            ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -83,8 +83,8 @@ public class MainWindowController {
     public void compile() {
         // Compiler Integration
         String[] classes = new String[2];
-        classes[0] = "LeapYear";
-        classes[1] = "LeapYearTest";
+        classes[0] = exercises.getCurrentExercise().getClasses().get(0).getCode();          //class
+        classes[1] = exercises.getCurrentExercise().getClasses().get(0).getTest().getCode();//test
         Compilation compiler = new Compilation(classes, logTextArea);
         compiler.runCompilation();
     }
