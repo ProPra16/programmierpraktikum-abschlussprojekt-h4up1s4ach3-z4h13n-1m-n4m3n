@@ -60,7 +60,7 @@ public class ExerciseConfig {
     @XmlType(propOrder = {"value", "time"})
     public static class Babysteps {
         private String value;
-        private String time;
+        private int time;
 
         @XmlAttribute
         public String getValue() {
@@ -72,11 +72,11 @@ public class ExerciseConfig {
         }
 
         @XmlAttribute
-        public String getTime() {
+        public int getTime() {
             return time;
         }
 
-        public void setTime(String time) {
+        public void setTime(int time) {
             this.time = time;
         }
     }
