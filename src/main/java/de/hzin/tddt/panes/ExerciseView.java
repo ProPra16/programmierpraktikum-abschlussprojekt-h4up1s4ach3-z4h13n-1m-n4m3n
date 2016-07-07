@@ -41,6 +41,6 @@ public class ExerciseView extends TitledPane {
             if (exercisePanes[i].isFocused())
                 return i;
 
-        return 1;
+        return 0;
     }
 }

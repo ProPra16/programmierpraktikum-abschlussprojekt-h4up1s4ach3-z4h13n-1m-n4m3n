@@ -265,7 +265,7 @@ public class LogikTest {
             </test>
         </tests>
         <config>
-            <babysteps value="True" time="00:02:00"/>
+            <babysteps value="True" time="120"/>
             <timetracking value="True"/>
         </config>
     </exercise>
