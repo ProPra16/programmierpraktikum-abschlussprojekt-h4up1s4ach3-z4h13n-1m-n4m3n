@@ -1,10 +1,16 @@
 package de.hzin.tddt.util;
 
+import de.hzin.tddt.objects.Exercise;
+import de.hzin.tddt.objects.ExerciseClass;
+import de.hzin.tddt.objects.ExerciseTest;
+import de.hzin.tddt.objects.Exercises;
 import javafx.scene.control.TextArea;
 import vk.core.api.CompilationUnit;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
 import vk.core.internal.InternalCompiler;
+
+import java.util.List;
 
 /**
  * Created by julius on 24.06.16.
@@ -17,9 +23,25 @@ public class Compilation {
     private CompilationUnit[] cus;
     private TextArea textArea;
 
-    public Compilation(String[] classNames) {
-        usedClasses = classNames;
-        readCus();
+    public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
+        //Exercise
+        textArea = inTextArea;
+        //System.out.print("asd");
+
+        List<Exercise> exerciseList = exercises.getExercisesList();
+        Exercise classAndTest = exercises.getCurrentExercise();
+        List<ExerciseClass> currentClasses = classAndTest.getClasses();
+        //System.out.print(currentClasses.get(0).getName());
+        //System.out.print("\n" + currentClasses.size());
+        cus = new CompilationUnit[currentClasses.size()*2];
+
+        for (int i = 1; i <= currentClasses.size(); i++) {
+            //System.out.println(((i*2)-2) + "," + ((i*2)-1));
+            cus[(i*2)-2] = new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false);
+            System.out.print(currentClasses.get(i-1).getName());
+            ExerciseTest currentTest = currentClasses.get(i-1).getTest();
+            cus[(i*2)-1] = new CompilationUnit(currentTest.getName(), currentTest.getCode(), true);
+        }
         runCompilation();
     }
 

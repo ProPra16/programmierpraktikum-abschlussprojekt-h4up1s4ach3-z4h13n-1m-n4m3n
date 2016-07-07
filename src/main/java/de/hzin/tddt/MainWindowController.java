@@ -1,5 +1,6 @@
 package de.hzin.tddt;
 
+import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.util.Compilation;
@@ -22,6 +23,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.*;
+import java.util.List;
 
 import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
 
@@ -40,6 +43,8 @@ public class MainWindowController {
     public TextArea logTextArea;
 
     private Exercises exercises;
+    private String[] contents = new String[2];
+    private int state = 0;
     private CodeArea codeArea = new CodeArea();
     private Timeline time;
     private int sekunden;
@@ -82,11 +87,8 @@ public class MainWindowController {
 
     public void compile() {
         // Compiler Integration
-        String[] classes = new String[2];
-        classes[0] = "LeapYear";
-        classes[1] = "LeapYearTest";
-        Compilation compiler = new Compilation(classes, logTextArea);
-        compiler.runCompilation();
+        Compilation compiler = new Compilation(exercises, logTextArea,contents);
+        //compiler.runCompilation();
     }
 
 
