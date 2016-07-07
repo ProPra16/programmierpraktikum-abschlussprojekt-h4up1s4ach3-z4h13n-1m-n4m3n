@@ -6,9 +6,12 @@ import de.hzin.tddt.util.XMLHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -68,11 +71,10 @@ public class MainWindowController {
     }
 
     public void openExercise(File file) {
-        Exercises exercises = null;
         try {
+            Exercises exercises;
             exercises = XMLHandler.unmarshal(file);
             codeArea.replaceText(exercises.getExercises().get(0).getClasses().get(0).getCode());
-
             ExerciseView exerciseView = new ExerciseView(exercises.getExercises(), file.getName());
             mainPane.setLeft(exerciseView);
         } catch (JAXBException e) {

@@ -13,14 +13,14 @@ import java.util.List;
  */
 public class ExerciseView extends TitledPane {
 
-    TitledPane[] exercisePanes;
-    ListView listView = new ListView();
+    private TitledPane[] exercisePanes;
+    public ListView javaFilesListView;
 
     public ExerciseView(List<Exercise> exercises, String exercisesName) {
         setText("Aktuelles " + exercisesName);
         exercisePanes = new TitledPane[exercises.size()];
         for (int i = 0; i < exercises.size(); i++) {
-            ListView javaFilesListView = new ListView();
+            javaFilesListView = new ListView();
             for (ExerciseJavaFile cur : exercises.get(i).getAllJavaFiles()) {
                 javaFilesListView.getItems().add(cur.getName());
             }
@@ -29,5 +29,18 @@ public class ExerciseView extends TitledPane {
         VBox group = new VBox();
         group.getChildren().addAll(exercisePanes);
         setContent(group);
+    }
+
+    public int getSelectedFileIndex() {
+        return javaFilesListView.getSelectionModel().getSelectedIndex();
+    }
+
+    public int getSelectedExerciseIndex() {
+        int selectedExerciseIndex = 0;
+        for (int i = 0; i < exercisePanes.length; i++)
+            if (exercisePanes[i].isFocused())
+                return i;
+
+        return 1;
     }
 }
