@@ -17,7 +17,7 @@ public class Exercises {
     private List<Exercise> exercises = new ArrayList<>();
 
     @XmlElement(name = "exercise")
-    public List<Exercise> getExercises() {
+    public List<Exercise> getExercisesList() {
         return exercises;
     }
 
