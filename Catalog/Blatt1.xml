@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <exercises>
-    <exercise name="Römische Zahlen">
+    <exercise name="Römische Zahlen I">
         <description>Konvertiert arabische in römische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
-public class RomanNumberConverter {
+                public class RomanNumberConverter {
 
-}
+                }
             </class>
         </classes>
         <tests>
@@ -24,7 +25,7 @@ public class RomanNumberConverter {
             <timetracking value="True"/>
         </config>
     </exercise>
-    <exercise name="Römische Zahlen">
+    <exercise name="Römische Zahlen II">
         <description>Konvertiert arabische in römische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
@@ -44,7 +45,7 @@ public class RomanNumberConverter {
             </test>
         </tests>
         <config>
-            <babysteps value="True" time="2:00"/>
+            <babysteps value="True" time="00:02:00"/>
             <timetracking value="True"/>
         </config>
     </exercise>
