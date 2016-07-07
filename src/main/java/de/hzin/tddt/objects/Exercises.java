@@ -14,7 +14,7 @@ import java.util.List;
 @XmlRootElement(name = "exercises")
 public class Exercises {
     private List<Exercise> exercises = new ArrayList<>();
-    private int currentExercise = 0;
+    private int currentIndex = 0;
 
     @XmlElement(name = "exercise")
     public List<Exercise> getExercisesList() {
@@ -25,12 +25,16 @@ public class Exercises {
         return exercises.get(index);
     }
 
-    public void setCurrentExercise(int i){
-        currentExercise = i;
+    public Exercise getCurrentExercise(){
+        return exercises.get(currentIndex);
     }
 
-    public int getCurrentExercise(){
-        return currentExercise;
+    public void setCurrentIndex(int i){
+        currentIndex = i;
+    }
+
+    public int getCurrentIndex(){
+        return currentIndex;
     }
 
     public void setExercises(List<Exercise> exercises) {
