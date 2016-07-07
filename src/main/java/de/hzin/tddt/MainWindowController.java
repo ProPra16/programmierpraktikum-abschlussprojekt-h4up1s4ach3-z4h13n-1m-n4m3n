@@ -1,7 +1,10 @@
 package de.hzin.tddt;
 
+import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.panes.ExerciseView;
+import de.hzin.tddt.util.Compilation;
+import de.hzin.tddt.util.Filehandler;
 import de.hzin.tddt.util.XMLHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -41,6 +44,7 @@ public class MainWindowController {
     @FXML
     public TextArea logTextArea;
 
+    private Exercises exercises;
     private CodeArea codeArea = new CodeArea();
     private Timeline time;
     private int sekunden;
@@ -72,7 +76,6 @@ public class MainWindowController {
 
     public void openExercise(File file) {
         try {
-            Exercises exercises;
             exercises = XMLHandler.unmarshal(file);
             codeArea.replaceText(exercises.getExercises().get(0).getClasses().get(0).getCode());
             ExerciseView exerciseView = new ExerciseView(exercises.getExercises(), file.getName());
