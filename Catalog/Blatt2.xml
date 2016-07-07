@@ -3,64 +3,63 @@
         <description>Die Vorzeichenfunktion oder Signumfunktion ist in der Mathematik eine Funktion, die einer reellen oder komplexen Zahl ihr Vorzeichen zuordnet.</description>
         <classes>
             <class name="Signum">
-/******************************************************************************
-* Compilation: javac Signum.java
-* Execution: java Signum n
-*
-* Eingabe und Ausgabe: Ueber main Funktion bereits vorgegeben.
-*
-******************************************************************************/
+                <code>
+                    /******************************************************************************
+                    * Compilation: javac Signum.java
+                    * Execution: java Signum n
+                    *
+                    * Eingabe und Ausgabe: Ueber main Funktion bereits vorgegeben.
+                    *
+                    ******************************************************************************/
 
-public class Signum {
-    public static void main(String[] args) {
-    int n = Integer.parseInt(args[0]);
-    System.out.println(signum(n));
-    }
+                    public class Signum {
+                    public static void main(String[] args) {
+                    int n = Integer.parseInt(args[0]);
+                    System.out.println(signum(n));
+                    }
 
-    public static int signum(int n){
-    // Implementieren Sie Ihre Loesung hier
-    }
-}
+                    public static int signum(int n){
+                    // Implementieren Sie Ihre Loesung hier
+                    }
+                    }
+                </code>
+                <test name="SignumTest">
+                    import static org.junit.Assert.*;
+                    import org.junit.Test;
 
+                    public class SignumTest {
+
+                    @Test
+                    public void testPositiveInput() {
+                    assertEquals(1, Signum.signum(10));
+                    }
+
+                    @Test
+                    public void testNegativeInput() {
+                    assertEquals(-1, Signum.signum(-110));
+                    }
+
+                    @Test
+                    public void testZeroInput() {
+                    assertEquals(0, Signum.signum(0));
+                    }
+
+                    @Test
+                    public void testRandomPositiveInput() {
+                    int input = 1 + StdRandom.uniform(1000000);
+                    assertEquals(1, Signum.signum(input));
+                    }
+
+                    @Test
+                    public void testRandomNegativeInput() {
+                    int input = -1 - StdRandom.uniform(1000000);
+                    assertEquals(-1, Signum.signum(input));
+                    }
+
+                    }
+                </test>
             </class>
         </classes>
-        <tests>
-            <test name="SignumTest">
-import static org.junit.Assert.*;
-import org.junit.Test;
-
-public class SignumTest {
-
-    @Test
-    public void testPositiveInput() {
-    assertEquals(1, Signum.signum(10));
-    }
-
-    @Test
-    public void testNegativeInput() {
-    assertEquals(-1, Signum.signum(-110));
-    }
-
-    @Test
-    public void testZeroInput() {
-    assertEquals(0, Signum.signum(0));
-    }
-
-    @Test
-    public void testRandomPositiveInput() {
-    int input = 1 + StdRandom.uniform(1000000);
-    assertEquals(1, Signum.signum(input));
-    }
-
-    @Test
-    public void testRandomNegativeInput() {
-    int input = -1 - StdRandom.uniform(1000000);
-    assertEquals(-1, Signum.signum(input));
-    }
-
-}
-            </test>
-        </tests>
         <config>
             <babysteps value="False"/>
             <timetracking value="True"/>
@@ -72,93 +71,92 @@ public class SignumTest {
             (d.h. die außer der 1 keine Teiler mit n gemeinsam haben).</description>
         <classes>
             <class name="PhiFunk">
-/******************************************************************************
-* Compilation: javac PhiFunk.java
-* Execution: java PhiFunk n
-*
-* Eingabe: Integer n > 0
-* Ausgabe: phi(n), die Formatierung der Ausgabe ist Ihnen ueberlassen.
-* Rueckgabe der Funktion phi(): Integer, der besagt, wie viele zu n teilerfremde
-* positive natürliche Zahlen kleiner n es gibt.
-*
-* Sie duerfen davon ausgehen, dass das Programm korrekt aufgerufen wird.
-******************************************************************************/
+                <code>
+                    /******************************************************************************
+                    * Compilation: javac PhiFunk.java
+                    * Execution: java PhiFunk n
+                    *
+                    * Eingabe: Integer n > 0
+                    * Ausgabe: phi(n), die Formatierung der Ausgabe ist Ihnen ueberlassen.
+                    * Rueckgabe der Funktion phi(): Integer, der besagt, wie viele zu n teilerfremde
+                    * positive natürliche Zahlen kleiner n es gibt.
+                    *
+                    * Sie duerfen davon ausgehen, dass das Programm korrekt aufgerufen wird.
+                    ******************************************************************************/
 
-public class PhiFunk {
-// Implementieren Sie Ihre Loesung hier
-}
+                    public class PhiFunk {
+                    // Implementieren Sie Ihre Loesung hier
+                    }
+                </code>
+                <test name="PhiFunkTest">
+                    import static org.junit.Assert.*;
+                    import org.junit.Test;
 
+                    public class PhiFunkTest {
+
+                    @Test
+                    public void testPrimes2() {
+                    int p = 2;
+                    assertEquals(p-1, PhiFunk.phi(p));
+                    }
+
+                    @Test
+                    public void testPrimes3() {
+                    int p = 3;
+                    assertEquals(p-1, PhiFunk.phi(p));
+                    }
+
+                    @Test
+                    public void testPrimes5() {
+                    int p = 5;
+                    assertEquals(p-1, PhiFunk.phi(p));
+                    }
+
+                    @Test
+                    public void testPrimes7() {
+                    int p = 7;
+                    assertEquals(p-1, PhiFunk.phi(p));
+                    }
+
+                    @Test
+                    public void testPrimes11() {
+                    int p = 11;
+                    assertEquals(p-1, PhiFunk.phi(p));
+                    }
+
+                    @Test
+                    public void testComposite6() {
+                    assertEquals(2, PhiFunk.phi(6));
+                    }
+
+                    @Test
+                    public void testComposite22() {
+                    assertEquals(10, PhiFunk.phi(22));
+                    }
+
+                    @Test
+                    public void testComposite87() {
+                    assertEquals(56, PhiFunk.phi(87));
+                    }
+
+                    @Test
+                    public void testComposite58() {
+                    assertEquals(28, PhiFunk.phi(58));
+                    }
+
+                    @Test
+                    public void testComposite91() {
+                    assertEquals(72, PhiFunk.phi(91));
+                    }
+
+                    @Test
+                    public void testComposite914345() {
+                    assertEquals(664320, PhiFunk.phi(914345));
+                    }
+                    }
+                </test>
             </class>
         </classes>
-        <tests>
-            <test name="PhiFunkTest">
-import static org.junit.Assert.*;
-import org.junit.Test;
-
-public class PhiFunkTest {
-
-    @Test
-    public void testPrimes2() {
-    int p = 2;
-    assertEquals(p-1, PhiFunk.phi(p));
-    }
-
-    @Test
-    public void testPrimes3() {
-    int p = 3;
-    assertEquals(p-1, PhiFunk.phi(p));
-    }
-
-    @Test
-    public void testPrimes5() {
-    int p = 5;
-    assertEquals(p-1, PhiFunk.phi(p));
-    }
-
-    @Test
-    public void testPrimes7() {
-    int p = 7;
-    assertEquals(p-1, PhiFunk.phi(p));
-    }
-
-    @Test
-    public void testPrimes11() {
-    int p = 11;
-    assertEquals(p-1, PhiFunk.phi(p));
-    }
-
-    @Test
-    public void testComposite6() {
-    assertEquals(2, PhiFunk.phi(6));
-    }
-
-    @Test
-    public void testComposite22() {
-    assertEquals(10, PhiFunk.phi(22));
-    }
-
-    @Test
-    public void testComposite87() {
-    assertEquals(56, PhiFunk.phi(87));
-    }
-
-    @Test
-    public void testComposite58() {
-    assertEquals(28, PhiFunk.phi(58));
-    }
-
-    @Test
-    public void testComposite91() {
-    assertEquals(72, PhiFunk.phi(91));
-    }
-
-    @Test
-    public void testComposite914345() {
-    assertEquals(664320, PhiFunk.phi(914345));
-    }
-}
-            </test>
-        </tests>
         <config>
             <babysteps value="False"/>
             <timetracking value="True"/>
@@ -169,101 +167,100 @@ public class PhiFunkTest {
             übernimmt und true zurückliefert, wenn alle Elemente im Array true sind.</description>
         <classes>
             <class name="Logik">
-/******************************************************************************
-*  Compilation:  javac Logik.java
-*  Execution:    java Logik
-*
-*  Eingabe fuer die Funktion all(): Array a von Wahrheitswerten
-*  Rueckgabe der Funktion all(): true, wenn alle Werte in a true sind,
-*                                false, sonst
-******************************************************************************/
+                <code>
+                    /******************************************************************************
+                    *  Compilation:  javac Logik.java
+                    *  Execution:    java Logik
+                    *
+                    *  Eingabe fuer die Funktion all(): Array a von Wahrheitswerten
+                    *  Rueckgabe der Funktion all(): true, wenn alle Werte in a true sind,
+                    *                                false, sonst
+                    ******************************************************************************/
 
-public class Logik {
-public static void main(String[] args) {
-// Sie duerfen hier fuer Ihre eigenen Zwecke eine Ausgabe programmieren.
-// Dies ist aber kein Bestandteil der Aufgabe.
-}
+                    public class Logik {
+                    public static void main(String[] args) {
+                    // Sie duerfen hier fuer Ihre eigenen Zwecke eine Ausgabe programmieren.
+                    // Dies ist aber kein Bestandteil der Aufgabe.
+                    }
 
-// Implementieren Sie Ihre Loesung hier
-}
+                    // Implementieren Sie Ihre Loesung hier
+                    }
+                </code>
+                <test name="LogikTest">
+                    import static org.junit.Assert.*;
+                    import org.junit.Test;
 
+                    public class LogikTest {
+
+                    @Test
+                    public void testEmptyInput()  {
+                    boolean[] input = {};
+                    assertEquals(true, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testTrueSingleton()  {
+                    boolean[] input = {true};
+                    assertEquals(true, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testFalseSingleton()  {
+                    boolean[] input = {false};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeAllTrue()  {
+                    boolean[] input = {true, true, true};
+                    assertEquals(true, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeAllFalse()  {
+                    boolean[] input = {false, false, false};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeTwoFalse12()  {
+                    boolean[] input = {false, false, true};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeTwoFalse13()  {
+                    boolean[] input = {false, true, false};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeTwoFalse23()  {
+                    boolean[] input = {true, false, false};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeOneFalse1()  {
+                    boolean[] input = {false, true, true};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeOneFalse2()  {
+                    boolean[] input = {true, false, true};
+                    assertEquals(false, Logik.all(input));
+                    }
+
+                    @Test
+                    public void testThreeOneFalse3()  {
+                    boolean[] input = {true, true, false};
+                    assertEquals(false, Logik.all(input));
+                    }
+                    }
+                </test>
             </class>
         </classes>
-        <tests>
-            <test name="LogikTest">
-import static org.junit.Assert.*;
-import org.junit.Test;
-
-public class LogikTest {
-
-    @Test
-    public void testEmptyInput()  {
-    boolean[] input = {};
-    assertEquals(true, Logik.all(input));
-    }
-
-    @Test
-    public void testTrueSingleton()  {
-    boolean[] input = {true};
-    assertEquals(true, Logik.all(input));
-    }
-
-    @Test
-    public void testFalseSingleton()  {
-    boolean[] input = {false};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeAllTrue()  {
-    boolean[] input = {true, true, true};
-    assertEquals(true, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeAllFalse()  {
-    boolean[] input = {false, false, false};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeTwoFalse12()  {
-    boolean[] input = {false, false, true};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeTwoFalse13()  {
-    boolean[] input = {false, true, false};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeTwoFalse23()  {
-    boolean[] input = {true, false, false};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeOneFalse1()  {
-    boolean[] input = {false, true, true};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeOneFalse2()  {
-    boolean[] input = {true, false, true};
-    assertEquals(false, Logik.all(input));
-    }
-
-    @Test
-    public void testThreeOneFalse3()  {
-    boolean[] input = {true, true, false};
-    assertEquals(false, Logik.all(input));
-    }
-}
-            </test>
-        </tests>
         <config>
             <babysteps value="True" time="120"/>
             <timetracking value="True"/>

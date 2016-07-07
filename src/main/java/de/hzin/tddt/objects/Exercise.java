@@ -13,13 +13,12 @@ import java.util.List;
  *
  * @author Aron Weisermann
  */
-@XmlType(propOrder = {"description", "classes", "tests", "config"})
+@XmlType(propOrder = {"description", "classes", "config"})
 public class Exercise {
 
     private String name;
     private String description;
     private List<ExerciseClass> classes;
-    private List<ExerciseTest> tests;
     private ExerciseConfig config;
 
     @XmlAttribute
@@ -39,13 +38,6 @@ public class Exercise {
         this.description = description;
     }
 
-    public List<ExerciseJavaFile> getAllJavaFiles(){
-        List<ExerciseJavaFile> allJavaFilesList = new ArrayList<>();
-        allJavaFilesList.addAll(tests);
-        allJavaFilesList.addAll(classes);
-        return allJavaFilesList;
-    }
-
     @XmlElementWrapper(name = "classes")
     @XmlElement(name = "class")
     public List<ExerciseClass> getClasses() {
@@ -54,16 +46,6 @@ public class Exercise {
 
     public void setClasses(List<ExerciseClass> classes) {
         this.classes = classes;
-    }
-
-    @XmlElementWrapper(name = "tests")
-    @XmlElement(name = "test")
-    public List<ExerciseTest> getTests() {
-        return tests;
-    }
-
-    public void setTests(List<ExerciseTest> tests) {
-        this.tests = tests;
     }
 
     @XmlElement(name = "config")

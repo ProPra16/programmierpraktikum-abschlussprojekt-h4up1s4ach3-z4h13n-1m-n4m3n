@@ -1,6 +1,7 @@
 package de.hzin.tddt.objects;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
@@ -9,10 +10,19 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author Aron Weisermann
  */
-public class ExerciseClass implements ExerciseJavaFile{
-
+public class ExerciseClass{
     private String name;
     private String code;
+    private ExerciseTest test;
+
+    @XmlElement
+    public ExerciseTest getTest() {
+        return test;
+    }
+
+    public void setTest(ExerciseTest test) {
+        this.test = test;
+    }
 
     @XmlAttribute
     public String getName() {
@@ -23,7 +33,7 @@ public class ExerciseClass implements ExerciseJavaFile{
         this.name = name;
     }
 
-    @XmlValue
+    @XmlElement
     public String getCode() {
         return code;
     }

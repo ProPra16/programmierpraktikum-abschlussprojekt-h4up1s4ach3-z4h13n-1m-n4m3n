@@ -1,7 +1,7 @@
 package de.hzin.tddt.panes;
 
 import de.hzin.tddt.objects.Exercise;
-import de.hzin.tddt.objects.ExerciseJavaFile;
+import de.hzin.tddt.objects.ExerciseClass;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
@@ -21,8 +21,9 @@ public class ExerciseView extends TitledPane {
         exercisePanes = new TitledPane[exercises.size()];
         for (int i = 0; i < exercises.size(); i++) {
             javaFilesListView = new ListView();
-            for (ExerciseJavaFile cur : exercises.get(i).getAllJavaFiles()) {
+            for (ExerciseClass cur : exercises.get(i).getClasses()) {
                 javaFilesListView.getItems().add(cur.getName());
+                javaFilesListView.getItems().add(cur.getTest().getName());
             }
             exercisePanes[i] = new TitledPane("Übung: " + exercises.get(i).getName(), javaFilesListView);
         }

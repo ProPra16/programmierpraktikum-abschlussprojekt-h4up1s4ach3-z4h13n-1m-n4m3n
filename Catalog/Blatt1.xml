@@ -4,22 +4,22 @@
         <description>Konvertiert arabische in römische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
-                public class RomanNumberConverter {
+                <code>
+                    public class RomanNumberConverter {
 
-                }
+                    }
+                </code>
+                <test name="RomanNumberConverterTest">
+                    import static org.junit.Assert.*;
+                    import org.junit.Test;
+                    public class RomanNumbersTest {
+                    @Test
+                    public void testSomething() {
+                    }
+                    }
+                </test>
             </class>
         </classes>
-        <tests>
-            <test name="RomanNumberConverterTest">
-                import static org.junit.Assert.*;
-                import org.junit.Test;
-                public class RomanNumbersTest {
-                @Test
-                public void testSomething() {
-                }
-                }
-            </test>
-        </tests>
         <config>
             <babysteps value="False"/>
             <timetracking value="True"/>
@@ -29,21 +29,22 @@
         <description>Konvertiert arabische in römische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
-                public class RomanNumberConverter {
-                }
+                <code>
+                    public class RomanNumberConverter {
+                    }
+                </code>
+
+                <test name="RomanNumberConverterTest">
+                    import static org.junit.Assert.*;
+                    import org.junit.Test;
+                    public class RomanNumbersTest {
+                    @Test
+                    public void testSomething() {
+                    }
+                    }
+                </test>
             </class>
         </classes>
-        <tests>
-            <test name="RomanNumberConverterTest">
-                import static org.junit.Assert.*;
-                import org.junit.Test;
-                public class RomanNumbersTest {
-                @Test
-                public void testSomething() {
-                }
-                }
-            </test>
-        </tests>
         <config>
             <babysteps value="True" time="120"/>
             <timetracking value="True"/>
