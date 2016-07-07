@@ -78,7 +78,7 @@ public class MainWindowController {
         try {
             exercises = XMLHandler.unmarshal(file);
             codeArea.replaceText(exercises.getExercisesList().get(0).getClasses().get(0).getCode());
-            ExerciseView exerciseView = new ExerciseView(exercises.getExercisesList(), file.getName());
+            ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
         } catch (JAXBException e) {
             e.printStackTrace();
