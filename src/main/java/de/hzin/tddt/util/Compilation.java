@@ -34,11 +34,9 @@ public class Compilation {
         //System.out.print(currentClasses.get(0).getName());
         //System.out.print("\n" + currentClasses.size());
         cus = new CompilationUnit[currentClasses.size()*2];
-
         for (int i = 1; i <= currentClasses.size(); i++) {
-            //System.out.println(((i*2)-2) + "," + ((i*2)-1));
             cus[(i*2)-2] = new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false);
-            System.out.print(currentClasses.get(i-1).getName());
+            System.out.println(currentClasses.get(i-1).getName());
             ExerciseTest currentTest = currentClasses.get(i-1).getTest();
             cus[(i*2)-1] = new CompilationUnit(currentTest.getName(), currentTest.getCode(), true);
         }
@@ -60,9 +58,11 @@ public class Compilation {
         compilerResult = compiler.getCompilerResult();
         testResult = compiler.getTestResult();
         if (compilerResult.hasCompileErrors()) {
+            String errors = "";
             for (int i = 0; i < cus.length; i++) {
-                System.out.println(compilerResult.getCompilerErrorsForCompilationUnit(cus[i]));
+                errors = errors + (compilerResult.getCompilerErrorsForCompilationUnit(cus[i])) + "\n";
             }
+            textArea.setText(errors);
         } else {
             if (textArea != null) {
                 String text = String.format("Successfully Compiled\nSuccessful Tests:%4d\nFailed Tests:%8d", testResult.getNumberOfSuccessfulTests(), testResult.getNumberOfFailedTests());

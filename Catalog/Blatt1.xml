@@ -5,18 +5,21 @@
         <classes>
             <class name="RomanNumberConverter">
                 <code>
-                    public class RomanNumberConverter {
-
-                    }
+public class RomanNumberConverter {
+    public static int test(int c){
+     return c;
+    }
+}
                 </code>
                 <test name="RomanNumberConverterTest">
-                    import static org.junit.Assert.*;
-                    import org.junit.Test;
-                    public class RomanNumberConverterTest {
-                    @Test
-                    public void testSomething() {
-                    }
-                    }
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class RomanNumberConverterTest {
+    @Test
+    public void testSomething() {
+        assertEquals(1, RomanNumbersConverter.test(1));
+    }
+}
                 </test>
             </class>
         </classes>
@@ -34,13 +37,14 @@
                     }
                 </code>
                 <test name="RomanNumberConverterTest">
-                    import static org.junit.Assert.*;
-                    import org.junit.Test;
-                    public class RomanNumberConverterTest {
-                    @Test
-                    public void testSomething() {
-                    }
-                    }
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class RomanNumberConverterTest {
+    @Test
+    public void testSomething() {
+        assertEquals(1, RomanNumbersConverter.test(1));
+    }
+}
                 </test>
             </class>
         </classes>
