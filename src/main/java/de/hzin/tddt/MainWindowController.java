@@ -186,6 +186,6 @@ public class MainWindowController {
     }
     public void chartDisplay(){
         timeKeeper.refreshTime(state);
-        Charts.display(timeKeeper.getTimeCode(), timeKeeper.getTimeTest(), timeKeeper.getTimeRefactor());
+        Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
 }

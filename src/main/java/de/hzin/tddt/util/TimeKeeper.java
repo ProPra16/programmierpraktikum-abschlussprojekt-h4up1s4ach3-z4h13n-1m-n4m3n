@@ -34,13 +34,13 @@ public class TimeKeeper {
 
     public void refreshTime(int c){
         System.out.println(time.toEpochMilli()/1000);
-        if(state == 0){
+        if(c == 0){
             addCodeTime();
         }
-        else if(state == 1){
+        else if(c == 1){
             addTestTime();
         }
-        else if(state == 2){
+        else if(c == 2){
             addRefactorTime();
         }
         resetTime();

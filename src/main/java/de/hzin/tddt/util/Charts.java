@@ -4,6 +4,8 @@ package de.hzin.tddt.util;
  * Created by constantin on 12.07.16.
  */
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -40,6 +42,18 @@ public class Charts {
         Scene scene = new Scene(new Group());
         ((Group) scene.getRoot()).getChildren().add(chart);
         window.setScene(scene);
+        // Close if Focus lost
+        window.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+            {
+                if (!newPropertyValue) {
+                    window.close();
+                }
+            }
+        });
+
         window.showAndWait();
     }
 
