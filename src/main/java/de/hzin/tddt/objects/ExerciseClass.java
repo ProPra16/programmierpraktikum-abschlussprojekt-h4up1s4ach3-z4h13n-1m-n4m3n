@@ -14,6 +14,7 @@ public class ExerciseClass{
     private String name;
     private String code;
     private ExerciseTest test;
+    private boolean isCurrentTest = false;
 
     @XmlElement
     public ExerciseTest getTest() {
@@ -49,5 +50,13 @@ public class ExerciseClass{
     public ExerciseClass(String className, String classContent) {
         this.name = className;
         this.code = classContent;
+    }
+
+    public void setIsCurrentTest(boolean isCurrentTest){
+        this.isCurrentTest = isCurrentTest;
+    }
+
+    public boolean isCurrentTest(){
+        return isCurrentTest;
     }
 }

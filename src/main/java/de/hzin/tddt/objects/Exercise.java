@@ -20,6 +20,7 @@ public class Exercise {
     private String description;
     private List<ExerciseClass> classes;
     private ExerciseConfig config;
+    private int currentIndex = 0;
 
     @XmlAttribute
     public String getName() {
@@ -55,5 +56,13 @@ public class Exercise {
 
     public void setConfig(ExerciseConfig config) {
         this.config = config;
+    }
+
+    public ExerciseClass getCurrentClass(){
+        return classes.get(currentIndex);
+    }
+
+    public void setCurrentIndex(int i){
+        currentIndex = i;
     }
 }

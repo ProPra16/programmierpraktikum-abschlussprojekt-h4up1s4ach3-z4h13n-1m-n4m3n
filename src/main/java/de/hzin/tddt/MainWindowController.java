@@ -48,7 +48,9 @@ public class MainWindowController {
 
     private Exercises exercises;
     private String[] contents = new String[2];
-    private int state = 0;
+    //private int state = 0;
+    private enum State{TEST, CODE, REFRACTOR};
+    private State state = State.TEST;
     private CodeArea codeArea = new CodeArea();
     private Timeline time;
     private int sekunden;
@@ -79,10 +81,20 @@ public class MainWindowController {
         }
     }
 
+    public void saveCurrentFile(){
+        ExerciseClass currentClass = exercises.getCurrentExercise().getCurrentClass();
+        if(currentClass.isCurrentTest()){
+            currentClass.getTest().setCode(codeArea.getText());
+        }
+        else{
+            currentClass.setCode(codeArea.getText());
+        }
+    }
+
     public void openExercise(File file) {
         try {
             exercises = XMLHandler.unmarshal(file);
-            codeArea.replaceText(exercises.getExercisesList().get(0).getClasses().get(0).getCode());
+            codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getCode());
             ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
