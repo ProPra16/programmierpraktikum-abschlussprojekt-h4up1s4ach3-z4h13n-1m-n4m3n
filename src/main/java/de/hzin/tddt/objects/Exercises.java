@@ -1,7 +1,12 @@
 package de.hzin.tddt.objects;
 
+import de.hzin.tddt.util.XMLHandler;
+
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +20,7 @@ import java.util.List;
 public class Exercises {
     private List<Exercise> exercises = new ArrayList<>();
     private int currentIndex = 0;
+    private File file;
 
     @XmlElement(name = "exercise")
     public List<Exercise> getExercisesList() {
@@ -39,5 +45,20 @@ public class Exercises {
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
+    }
+
+    public void saveExercises(){
+        try {
+                XMLHandler.marshal(this, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }

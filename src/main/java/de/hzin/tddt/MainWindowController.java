@@ -5,6 +5,7 @@ import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.ExerciseView;
+import de.hzin.tddt.panes.Toolbar;
 import de.hzin.tddt.util.Charts;
 import de.hzin.tddt.util.Compilation;
 import de.hzin.tddt.util.TimeKeeper;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -47,6 +49,9 @@ public class MainWindowController {
     @FXML
     public TextArea logTextArea;
 
+    @FXML
+    private VBox topContainer;
+
     private Exercises exercises;
     private String[] contents = new String[2];
     private State state = State.TEST;
@@ -66,6 +71,11 @@ public class MainWindowController {
                 });
         mainPane.getStylesheets().add("java-keywords.css");
         mainPane.setCenter(codeArea);
+        topContainer.getChildren().add(new Toolbar());
+    }
+
+    public void onSaveFilePressed() {
+        exercises.saveExercises();
     }
 
     public void onMenuOpenExercisePressed() {
@@ -80,22 +90,20 @@ public class MainWindowController {
         }
     }
 
-    public void saveCurrentFile(){
+    public void saveCurrentFile() {
         ExerciseClass currentClass = exercises.getCurrentExercise().getCurrentClass();
-        if(currentClass.isCurrentTest()){
+        if (currentClass.isCurrentTest()) {
             currentClass.getTest().setCode(codeArea.getText());
-        }
-        else{
+        } else {
             currentClass.setCode(codeArea.getText());
         }
     }
 
-    public void replaceCodeAreaTextToCurrent(){
+    public void replaceCodeAreaTextToCurrent() {
         ExerciseClass currentClass = exercises.getCurrentExercise().getCurrentClass();
-        if(currentClass.isCurrentTest()){
+        if (currentClass.isCurrentTest()) {
             codeArea.replaceText(currentClass.getTest().getCode());
-        }
-        else{
+        } else {
             codeArea.replaceText(currentClass.getCode());
         }
     }
@@ -103,6 +111,7 @@ public class MainWindowController {
     public void openExercise(File file) {
         try {
             exercises = XMLHandler.unmarshal(file);
+            exercises.setFile(file);
             codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getCode());
             ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
@@ -114,12 +123,13 @@ public class MainWindowController {
 
     public void compile() {
         // Compiler Integration
-        Compilation compiler = new Compilation(exercises, logTextArea,contents);
-        if(exercises != null){
+        Compilation compiler = new Compilation(exercises, logTextArea, contents);
+        if (exercises != null) {
             Exercise exercise = exercises.getCurrentExercise();
             List<ExerciseClass> exerciseClass = exercise.getClasses();
             exerciseClass.get(0).setCode(codeArea.getText());
         }
+        saveCurrentFile();
         //compiler.runCompilation();
     }
 
@@ -156,8 +166,8 @@ public class MainWindowController {
         if (time != null) stopZeit();
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
-        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         saveCurrentFile();
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
         starteTimer();
         state = State.CODE;
@@ -168,8 +178,8 @@ public class MainWindowController {
         if (time != null) stopZeit();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
-        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         saveCurrentFile();
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
         starteTimer();
         state = State.TEST;
@@ -180,8 +190,8 @@ public class MainWindowController {
         if (time != null) stopZeit();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
-        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         saveCurrentFile();
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         replaceCodeAreaTextToCurrent();
         starteTimer();
         state = State.REFACTOR;
@@ -200,7 +210,8 @@ public class MainWindowController {
             }
         }
     }
-    public void chartDisplay(){
+
+    public void chartDisplay() {
         timeKeeper.refreshTime();
         Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
