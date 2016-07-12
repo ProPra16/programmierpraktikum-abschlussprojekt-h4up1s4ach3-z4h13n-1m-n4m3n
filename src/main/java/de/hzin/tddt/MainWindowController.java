@@ -90,6 +90,16 @@ public class MainWindowController {
         }
     }
 
+    public void replaceCodeAreaTextToCurrent(){
+        ExerciseClass currentClass = exercises.getCurrentExercise().getCurrentClass();
+        if(currentClass.isCurrentTest()){
+            codeArea.replaceText(currentClass.getTest().getCode());
+        }
+        else{
+            codeArea.replaceText(currentClass.getCode());
+        }
+    }
+
     public void openExercise(File file) {
         try {
             exercises = XMLHandler.unmarshal(file);
@@ -146,6 +156,9 @@ public class MainWindowController {
         if (time != null) stopZeit();
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
+        saveCurrentFile();
+        replaceCodeAreaTextToCurrent();
         starteTimer();
         state = State.CODE;
         timeKeeper.changeStateTo(state);
@@ -155,6 +168,9 @@ public class MainWindowController {
         if (time != null) stopZeit();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
+        saveCurrentFile();
+        replaceCodeAreaTextToCurrent();
         starteTimer();
         state = State.TEST;
         timeKeeper.changeStateTo(state);
@@ -164,6 +180,9 @@ public class MainWindowController {
         if (time != null) stopZeit();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
+        saveCurrentFile();
+        replaceCodeAreaTextToCurrent();
         starteTimer();
         state = State.REFACTOR;
         timeKeeper.changeStateTo(state);
