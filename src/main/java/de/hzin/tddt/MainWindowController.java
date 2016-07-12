@@ -3,6 +3,7 @@ package de.hzin.tddt;
 import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.panes.ExerciseView;
+import de.hzin.tddt.util.Charts;
 import de.hzin.tddt.util.Compilation;
 import de.hzin.tddt.util.XMLHandler;
 import javafx.animation.Animation;
@@ -155,5 +156,8 @@ public class MainWindowController {
                 }
             }
         }
+    }
+    public void chartDisplay(){
+        Charts.display();
     }
 }
