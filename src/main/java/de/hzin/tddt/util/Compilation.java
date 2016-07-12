@@ -10,6 +10,8 @@ import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
 import vk.core.internal.InternalCompiler;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,24 +24,24 @@ public class Compilation {
     private InternalCompiler compiler;
     private CompilationUnit[] cus;
     private TextArea textArea;
+    private List<CompilationUnit> cusList = new ArrayList<>();
 
     public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
         //Exercise
         textArea = inTextArea;
-        //System.out.print("asd");
         if(exercises != null){
             List<Exercise> exerciseList = exercises.getExercisesList();
             Exercise classAndTest = exercises.getCurrentExercise();
             List<ExerciseClass> currentClasses = classAndTest.getClasses();
-            //System.out.print(currentClasses.get(0).getName());
-            //System.out.print("\n" + currentClasses.size());
-            cus = new CompilationUnit[currentClasses.size()*2];
+            cusList = new ArrayList<CompilationUnit>();
             for (int i = 1; i <= currentClasses.size(); i++) {
-                cus[(i*2)-2] = new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false);
                 System.out.println(currentClasses.get(i-1).getName());
                 ExerciseTest currentTest = currentClasses.get(i-1).getTest();
-                cus[(i*2)-1] = new CompilationUnit(currentTest.getName(), currentTest.getCode(), true);
+                cusList.add(new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false));
+                cusList.add(new CompilationUnit(currentTest.getName(), currentTest.getCode(), true));
             }
+            //addAdditionalResource();
+            cus = cusList.toArray(new CompilationUnit[cusList.size()]);
             runCompilation();
         }
         else{
@@ -96,7 +98,7 @@ public class Compilation {
         usedClasses = classes;
     }
 
-    private void setText() {
-
+    private void addAdditionalResource(String addClass, String addCode){
+        cusList.add(new CompilationUnit(addClass,addCode,false));
     }
 }
