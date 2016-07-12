@@ -1,5 +1,7 @@
 package de.hzin.tddt.util;
 
+import de.hzin.tddt.objects.State;
+
 import java.time.Instant;
 
 /**
@@ -10,37 +12,26 @@ public class TimeKeeper {
     private double timeCode = 0;
     private double timeRefactor = 0;
     private double timeTest = 0;
-    private int state = 0;
+    private State state = State.TEST;
 
     public TimeKeeper(){
         resetTime();
     }
 
-    public void changeStateTo(int c){
-        System.out.println(time.toEpochMilli()/1000);
-        System.out.println("Angekommener State" + c);
-        if(state == 0){
-            addCodeTime();
-        }
-        else if(state == 1){
-            addTestTime();
-        }
-        else if(state == 2){
-            addRefactorTime();
-        }
+    public void changeStateTo(State c){
+        refreshTime();
         state = c;
-        resetTime();
     }
 
-    public void refreshTime(int c){
+    public void refreshTime(){
         System.out.println(time.toEpochMilli()/1000);
-        if(c == 0){
+        if(state == state.CODE){
             addCodeTime();
         }
-        else if(c == 1){
+        else if(state == state.TEST){
             addTestTime();
         }
-        else if(c == 2){
+        else if(state == state.REFACTOR){
             addRefactorTime();
         }
         resetTime();

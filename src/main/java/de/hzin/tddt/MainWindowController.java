@@ -147,8 +147,7 @@ public class MainWindowController {
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
         starteTimer();
-        state = State.TEST;
-        System.out.println(state);
+        state = State.CODE;
         timeKeeper.changeStateTo(state);
     }
 
@@ -157,8 +156,7 @@ public class MainWindowController {
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
         starteTimer();
-        state = State.CODE;
-        System.out.println(state);
+        state = State.TEST;
         timeKeeper.changeStateTo(state);
     }
 
@@ -168,7 +166,6 @@ public class MainWindowController {
         aktphase.setStyle("-fx-text-fill: black;");
         starteTimer();
         state = State.REFACTOR;
-        System.out.println(state);
         timeKeeper.changeStateTo(state);
     }
 
@@ -185,7 +182,7 @@ public class MainWindowController {
         }
     }
     public void chartDisplay(){
-        timeKeeper.refreshTime(state);
+        timeKeeper.refreshTime();
         Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
 }
