@@ -1,10 +1,12 @@
 package de.hzin.tddt;
 
 import de.hzin.tddt.objects.Exercise;
+import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.util.Charts;
 import de.hzin.tddt.util.Compilation;
+import de.hzin.tddt.util.TimeKeeper;
 import de.hzin.tddt.util.XMLHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -24,6 +26,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Time;
 import java.util.*;
 import java.util.List;
 
@@ -49,6 +52,7 @@ public class MainWindowController {
     private CodeArea codeArea = new CodeArea();
     private Timeline time;
     private int sekunden;
+    private TimeKeeper timeKeeper = new TimeKeeper();
 
     @FXML
     public void initialize() throws URISyntaxException {
@@ -81,6 +85,7 @@ public class MainWindowController {
             codeArea.replaceText(exercises.getExercisesList().get(0).getClasses().get(0).getCode());
             ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
+            timeKeeper = new TimeKeeper();
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -89,6 +94,11 @@ public class MainWindowController {
     public void compile() {
         // Compiler Integration
         Compilation compiler = new Compilation(exercises, logTextArea,contents);
+        if(exercises != null){
+            Exercise exercise = exercises.getCurrentExercise();
+            List<ExerciseClass> exerciseClass = exercise.getClasses();
+            exerciseClass.get(0).setCode(codeArea.getText());
+        }
         //compiler.runCompilation();
     }
 
@@ -101,7 +111,6 @@ public class MainWindowController {
         }));
         time.setCycleCount(Animation.INDEFINITE);
         time.play();
-
     }
 
     public void stopZeit() {
@@ -127,6 +136,9 @@ public class MainWindowController {
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
         starteTimer();
+        state = 0;
+        System.out.println(state);
+        timeKeeper.changeStateTo(state);
     }
 
     public void red() {
@@ -134,7 +146,9 @@ public class MainWindowController {
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
         starteTimer();
-
+        state = 1;
+        System.out.println(state);
+        timeKeeper.changeStateTo(state);
     }
 
     public void refre() {
@@ -142,7 +156,9 @@ public class MainWindowController {
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
         starteTimer();
-
+        state = 2;
+        System.out.println(state);
+        timeKeeper.changeStateTo(state);
     }
 
     public void openfile() {
@@ -158,6 +174,7 @@ public class MainWindowController {
         }
     }
     public void chartDisplay(){
-        Charts.display();
+        timeKeeper.refreshTime(state);
+        Charts.display(timeKeeper.getTimeCode(), timeKeeper.getTimeTest(), timeKeeper.getTimeRefactor());
     }
 }

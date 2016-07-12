@@ -13,14 +13,21 @@ import javafx.scene.Group;
 
 public class Charts {
 
-    public static void display() {
+    public static void display(double red, double green, double refactor) {
+        int normRed = (int) ( red*100/(red+green+refactor));
+        int normGreen = (int) (green*100/(red+green+refactor));
+        int normRefactor = (int) (refactor*100/(red+green+refactor));
+
+        System.out.println(red + ":" + normRed + "-" + green + ":" + normGreen + "-" + refactor + ":" + normRefactor + "-");;
+
+
         Stage window = new Stage();
         window.setTitle("Tracking Chart");
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("RED", 33),
-                        new PieChart.Data("GREEN", 33),
-                        new PieChart.Data("REFACTOR", 34));
+                        new PieChart.Data("RED", normRed),
+                        new PieChart.Data("GREEN", normGreen),
+                        new PieChart.Data("REFACTOR", normRefactor));
         final PieChart chart = new PieChart(pieChartData);
         chart.setLegendVisible(false);
         applyCustomColorSequence(

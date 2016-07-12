@@ -10,23 +10,54 @@ public class TimeKeeper {
     private double timeCode = 0;
     private double timeRefactor = 0;
     private double timeTest = 0;
+    private int state = 0;
 
     public TimeKeeper(){
         resetTime();
     }
 
+    public void changeStateTo(int c){
+        System.out.println(time.toEpochMilli()/1000);
+        System.out.println("Angekommener State" + c);
+        if(state == 0){
+            addCodeTime();
+        }
+        else if(state == 1){
+            addTestTime();
+        }
+        else if(state == 2){
+            addRefactorTime();
+        }
+        state = c;
+        resetTime();
+    }
+
+    public void refreshTime(int c){
+        System.out.println(time.toEpochMilli()/1000);
+        if(state == 0){
+            addCodeTime();
+        }
+        else if(state == 1){
+            addTestTime();
+        }
+        else if(state == 2){
+            addRefactorTime();
+        }
+        resetTime();
+    }
+
     public void addCodeTime(){
-        timeCode += (Instant.now().getNano()-time.getNano())/1000000;
+        timeCode += (Instant.now().toEpochMilli()-time.toEpochMilli())/1000;
         resetTime();
     }
 
     public void addRefactorTime(){
-        timeRefactor += (Instant.now().getNano()-time.getNano())/1000000;
+        timeRefactor += (Instant.now().toEpochMilli()-time.toEpochMilli())/1000;
         resetTime();
     }
 
     public void addTestTime(){
-        timeTest += (Instant.now().getNano()-time.getNano())/1000000;
+        timeTest += (Instant.now().toEpochMilli()-time.toEpochMilli())/1000;
         resetTime();
     }
 
