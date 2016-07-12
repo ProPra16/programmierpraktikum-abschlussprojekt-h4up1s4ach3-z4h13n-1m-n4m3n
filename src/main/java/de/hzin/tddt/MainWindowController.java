@@ -3,6 +3,7 @@ package de.hzin.tddt;
 import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
+import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.util.Charts;
 import de.hzin.tddt.util.Compilation;
@@ -48,8 +49,6 @@ public class MainWindowController {
 
     private Exercises exercises;
     private String[] contents = new String[2];
-    //private int state = 0;
-    private enum State{TEST, CODE, REFRACTOR};
     private State state = State.TEST;
     private CodeArea codeArea = new CodeArea();
     private Timeline time;
@@ -148,7 +147,7 @@ public class MainWindowController {
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
         starteTimer();
-        state = 0;
+        state = State.TEST;
         System.out.println(state);
         timeKeeper.changeStateTo(state);
     }
@@ -158,7 +157,7 @@ public class MainWindowController {
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
         starteTimer();
-        state = 1;
+        state = State.CODE;
         System.out.println(state);
         timeKeeper.changeStateTo(state);
     }
@@ -168,7 +167,7 @@ public class MainWindowController {
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
         starteTimer();
-        state = 2;
+        state = State.REFACTOR;
         System.out.println(state);
         timeKeeper.changeStateTo(state);
     }
