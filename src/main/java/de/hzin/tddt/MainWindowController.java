@@ -4,15 +4,13 @@ import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.objects.State;
+import de.hzin.tddt.panes.BabystepTimer;
 import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.panes.Toolbar;
 import de.hzin.tddt.util.Charts;
 import de.hzin.tddt.util.Compilation;
 import de.hzin.tddt.util.TimeKeeper;
 import de.hzin.tddt.util.XMLHandler;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -20,7 +18,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
@@ -29,8 +26,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.sql.Time;
-import java.util.*;
 import java.util.List;
 
 import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
@@ -41,7 +36,9 @@ public class MainWindowController {
     private BorderPane mainPane;
 
     @FXML
-    private Label timecounter;
+    private VBox rightContainer;
+
+    private BabystepTimer babystepTimer;
 
     @FXML
     private Label aktphase;
@@ -56,12 +53,13 @@ public class MainWindowController {
     private String[] contents = new String[2];
     private State state = State.TEST;
     private CodeArea codeArea = new CodeArea();
-    private Timeline time;
-    private int sekunden;
     private TimeKeeper timeKeeper = new TimeKeeper();
 
     @FXML
     public void initialize() throws URISyntaxException {
+        babystepTimer = new BabystepTimer();
+        rightContainer.getChildren().add(0,babystepTimer);
+
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
         codeArea.richChanges()
@@ -134,66 +132,47 @@ public class MainWindowController {
     }
 
 
-    public void starteTimer() {
-        sekunden = 0;
-        time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            sekunden++;
-            timecounter.setText("Zeit:" + String.valueOf(sekunden));
-        }));
-        time.setCycleCount(Animation.INDEFINITE);
-        time.play();
-    }
-
-    public void stopZeit() {
-        time.stop();
-    }
-
-    public void startebabystepTimer() {
-        sekunden = 180;
-        time = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            sekunden--;
-            if (sekunden == 0) {
-                stopZeit();
-                timecounter.setText("Zeit:" + String.valueOf(sekunden));
-            }
-            timecounter.setText("Zeit:" + String.valueOf(sekunden));
-        }));
-        time.setCycleCount(Animation.INDEFINITE);
-        time.play();
-    }
-
     public void green() {
-        if (time != null) stopZeit();
+        babystepTimer.stopTimer();
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
-        starteTimer();
+        if (babystepTimer != null) {
+            int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
+            babystepTimer.startTimer(time);
+        }
         state = State.CODE;
         timeKeeper.changeStateTo(state);
     }
 
     public void red() {
-        if (time != null) stopZeit();
+        if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
-        starteTimer();
+        if (babystepTimer != null) {
+            int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
+            babystepTimer.startTimer(time);
+        }
         state = State.TEST;
         timeKeeper.changeStateTo(state);
     }
 
     public void refre() {
-        if (time != null) stopZeit();
+        if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         replaceCodeAreaTextToCurrent();
-        starteTimer();
+        if (babystepTimer != null) {
+            int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
+            babystepTimer.startTimer(time);
+        }
         state = State.REFACTOR;
         timeKeeper.changeStateTo(state);
     }
