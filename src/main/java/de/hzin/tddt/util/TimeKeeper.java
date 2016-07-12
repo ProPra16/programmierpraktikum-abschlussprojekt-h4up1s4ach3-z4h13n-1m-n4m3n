@@ -24,7 +24,6 @@ public class TimeKeeper {
     }
 
     public void refreshTime(){
-        System.out.println(time.toEpochMilli()/1000);
         if(state == state.CODE){
             addCodeTime();
         }
