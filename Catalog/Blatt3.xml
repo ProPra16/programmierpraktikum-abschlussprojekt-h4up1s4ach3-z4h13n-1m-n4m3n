@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exercises>
+    <exercise name="Celsius Fahrenheit Konverter">
+        <description>Konvertiert Celsius zu Fahrenheit und umgekehrt.</description>
+        <classes>
+            <class name="FCconverter">
+                <code>
+/*Aufgabenstellung:
+Scrheiben Sie zwei Methoden, die eine übergebene Zahl von Celsius
+zu Fahrenheit bzw. umgekehrt konvertiert*/
+public class FCconverter{
+    //Implementieren sie ihre Lösung hier
+}
+                </code>
+                <test name="FCconverterTest">
+/*Aufgabenstellung:
+Scrheiben Sie zwei Methoden, die eine übergebene Zahl von Celsius
+zu Fahrenheit bzw. umgekehrt konvertiert*/
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class FCconverterTest {
+
+    @Test
+    //Implementieren Sie ihre Lösung hier
+}
+                </test>
+            </class>
+        </classes>
+        <config>
+            <babysteps value="False"/>
+            <timetracking value="True"/>
+        </config>
+    </exercise>
+    <exercise name="Leapyear">
+        <description>Berechnet ob ein gegebenes Jahr ein Schaltjahr ist.</description>
+        <classes>
+            <class name="LeapYear">
+                <code>
+/*Aufgabenstellung:
+Scrheiben Sie eine Methode, die für en übergebenes Jahr
+überprüft, ob es sich um ein Schaltjahr handelt*/
+public class LeapYear {
+    //Implementieren Sie ihre Lösung hier
+}
+
+                </code>
+                <test name="LeapYearTest">
+/*Aufgabenstellung:
+Scrheiben Sie eine Methode, die für en übergebenes Jahr
+überprüft, ob es sich um ein Schaltjahr handelt*/
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class LeapYearTest {
+
+    @Test
+    //Implementieren Sie ihre Lösung hier
+}
+                </test>
+            </class>
+        </classes>
+        <config>
+            <babysteps value="True" time="120"/>
+            <timetracking value="True"/>
+        </config>
+    </exercise>
+</exercises>
