@@ -12,6 +12,8 @@ import de.hzin.tddt.util.Compilation;
 import de.hzin.tddt.util.TimeKeeper;
 import de.hzin.tddt.util.XMLHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
@@ -34,6 +36,18 @@ public class MainWindowController {
 
     @FXML
     private BorderPane mainPane;
+
+    @FXML
+    private Button redBUT;
+
+    @FXML
+    private Button backredBUT;
+
+    @FXML
+    private Button greenBUT;
+
+    @FXML
+    private Button refacBUT;
 
     @FXML
     private VBox rightContainer;
@@ -145,6 +159,10 @@ public class MainWindowController {
         }
         state = State.CODE;
         timeKeeper.changeStateTo(state);
+        this.backredBUT.setDisable(false);
+        this.redBUT.setDisable(true);
+        this.greenBUT.setDisable(true);
+        this.refacBUT.setDisable(false);
     }
 
     public void red() {
@@ -160,9 +178,14 @@ public class MainWindowController {
         }
         state = State.TEST;
         timeKeeper.changeStateTo(state);
+        this.redBUT.setDisable(true);
+        this.refacBUT.setDisable(true);
+        this.backredBUT.setDisable(true);
+        this.greenBUT.setDisable(false);
+
     }
 
-    public void refre() {
+    public void refac() {
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
@@ -175,6 +198,11 @@ public class MainWindowController {
         }
         state = State.REFACTOR;
         timeKeeper.changeStateTo(state);
+        this.greenBUT.setDisable(true);
+        this.backredBUT.setDisable(true);
+        this.redBUT.setDisable(false);
+
+
     }
 
     public void openfile() {
@@ -194,4 +222,6 @@ public class MainWindowController {
         timeKeeper.refreshTime();
         Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
+
+
 }
