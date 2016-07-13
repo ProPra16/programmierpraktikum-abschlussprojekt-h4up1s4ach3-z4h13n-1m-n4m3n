@@ -140,8 +140,9 @@ public class MainWindowController {
             Exercise exercise = exercises.getCurrentExercise();
             List<ExerciseClass> exerciseClass = exercise.getClasses();
             exerciseClass.get(0).setCode(codeArea.getText());
+            saveCurrentFile();
         }
-        saveCurrentFile();
+
         //compiler.runCompilation();
     }
 

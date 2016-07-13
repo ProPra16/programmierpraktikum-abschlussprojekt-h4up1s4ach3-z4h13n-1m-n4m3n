@@ -25,8 +25,11 @@ public class Compilation {
     private CompilationUnit[] cus;
     private TextArea textArea;
     private List<CompilationUnit> cusList = new ArrayList<>();
+    private List<CompilationUnit> additionalResources = new ArrayList();
 
     public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
+        addAdditionalResource("StdRandom");
+        addAdditionalResource("StdOut");
         //Exercise
         textArea = inTextArea;
         if(exercises != null){
@@ -34,13 +37,17 @@ public class Compilation {
             Exercise classAndTest = exercises.getCurrentExercise();
             List<ExerciseClass> currentClasses = classAndTest.getClasses();
             cusList = new ArrayList<CompilationUnit>();
+            for(CompilationUnit i : additionalResources){
+                cusList.add(i);
+            }
             for (int i = 1; i <= currentClasses.size(); i++) {
                 System.out.println(currentClasses.get(i-1).getName());
                 ExerciseTest currentTest = currentClasses.get(i-1).getTest();
                 cusList.add(new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false));
                 cusList.add(new CompilationUnit(currentTest.getName(), currentTest.getCode(), true));
             }
-            //addAdditionalResource();
+
+
             cus = cusList.toArray(new CompilationUnit[cusList.size()]);
             runCompilation();
         }
@@ -98,7 +105,9 @@ public class Compilation {
         usedClasses = classes;
     }
 
-    private void addAdditionalResource(String addClass, String addCode){
-        cusList.add(new CompilationUnit(addClass,addCode,false));
+    private void addAdditionalResource(String addClass){
+        Filehandler file = new Filehandler(addClass);
+        file.load();
+        additionalResources.add(new CompilationUnit(addClass,file.getContent(),false));
     }
 }
