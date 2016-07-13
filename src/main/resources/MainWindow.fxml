@@ -43,7 +43,6 @@
          <children>
             <Button mnemonicParsing="false" onAction="#chartDisplay" prefHeight="25.0" prefWidth="230.0" text="Tracking Data" />
             <Label prefHeight="27.0" prefWidth="122.0" text="X / Y passed" />
-            <Button mnemonicParsing="false" onAction="#startebabystepTimer" prefHeight="25.0" prefWidth="230.0" text="BabySteps aktivieren" />
             <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Phase: " />
             <Label fx:id="aktphase" prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
             <Button mnemonicParsing="false" onAction="#green" prefHeight="25.0" prefWidth="201.0" text="Weiter zu GREEN" />
