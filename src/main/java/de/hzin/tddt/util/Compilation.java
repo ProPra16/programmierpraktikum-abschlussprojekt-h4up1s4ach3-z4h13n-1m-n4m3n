@@ -29,7 +29,7 @@ public class Compilation {
 
     public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
         addAdditionalResource("StdRandom");
-        addAdditionalResource("StdOut");
+        addWebResource("http://introcs.cs.princeton.edu/java/stdlib/StdOut.java","StdOut");
         //Exercise
         textArea = inTextArea;
         if(exercises != null){
@@ -106,8 +106,18 @@ public class Compilation {
     }
 
     private void addAdditionalResource(String addClass){
+        addClass = "lib/" + addClass;
         Filehandler file = new Filehandler(addClass);
-        file.load();
         additionalResources.add(new CompilationUnit(addClass,file.getContent(),false));
+    }
+
+    private void addWebResource(String addWebSite, String addWebClass){
+        Filehandler file = null;
+        try {
+            file = new Filehandler(addWebSite,addWebClass);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        additionalResources.add(new CompilationUnit(addWebClass,file.getContent(),false));
     }
 }
