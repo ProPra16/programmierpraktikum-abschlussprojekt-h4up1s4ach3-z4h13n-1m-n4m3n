@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exercises>
+    <exercise name="Längstes Plateau">
+        <description>Ermittelt die Länge des längsten Plateaus in einem Integer Array.</description>
+        <classes>
+            <class name="Plateau">
+                <code>
+/*Aufgabenstellung:
+Schreiben Sie eine Methode, die für ein ubergebenes Integer-Array
+die Länge und Position der längsten zusammenhängenden Sequenz
+von gleichen Werten ermittelt, wobei die Werte der Elemente direkt
+vor und direkt nach dieser Sequenz kleiner sein sollen.*/
+public class Plateau {
+    //Implementieren Sie ihre Lösung hier
+}
+                </code>
+                <test name="PlateauTest">
+/*Aufgabenstellung:
+Schreiben Sie eine Methode, die für ein ubergebenes Integer-Array
+die Länge und Position der längsten zusammenhängenden Sequenz
+von gleichen Werten ermittelt, wobei die Werte der Elemente direkt
+vor und direkt nach dieser Sequenz kleiner sein sollen.*/
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class PlateauTest {
+
+@Test
+    //Implementieren Sie ihre Lösung hier
+}
+                </test>
+            </class>
+        </classes>
+        <config>
+            <babysteps value="False"/>
+            <timetracking value="True"/>
+        </config>
+    </exercise>
+    <exercise name="Median">
+        <description>Berechnet den Median eines Integer Arrays.</description>
+        <classes>
+            <class name="Median">
+                <code>
+/*Aufgabenstellung:
+Schreiben Sie eine Methode Median, das für ein übergebenes Integerarray
+den Median ausgibt*/
+public class Median {
+    //Implementieren Sie ihre Lösung hier
+}
+
+                </code>
+                <test name="MedianTest">
+/*Aufgabenstellung:
+Schreiben Sie eine Methode Median, das für ein übergebenes Integerarray
+den Median ausgibt*/
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class MedianTest {
+
+    @Test
+    //Implementieren Sie ihre Lösung hier
+}
+                </test>
+            </class>
+        </classes>
+        <config>
+            <babysteps value="True" time="120"/>
+            <timetracking value="True"/>
+        </config>
+    </exercise>
+</exercises>
