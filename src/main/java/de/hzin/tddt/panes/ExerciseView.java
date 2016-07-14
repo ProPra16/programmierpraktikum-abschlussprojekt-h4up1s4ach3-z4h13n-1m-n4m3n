@@ -10,9 +10,6 @@ import javafx.scene.input.MouseEvent;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Aron Weisermann
- */
 public class ExerciseView extends TreeView {
 
     public ExerciseView(MainWindowController controller) {
