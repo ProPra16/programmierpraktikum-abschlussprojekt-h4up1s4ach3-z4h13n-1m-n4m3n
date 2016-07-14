@@ -30,42 +30,31 @@ import static de.hzin.tddt.util.JavaKeywordsAsync.computeHighlighting;
 public class MainWindowController {
 
     @FXML
-    private BorderPane mainPane;
-
-    @FXML
     public Label lblDescription;
-
-    @FXML
-    private Button redBUT;
-
-    @FXML
-    private Button backredBUT;
-
-    @FXML
-    private Button greenBUT;
-
-    @FXML
-    private Button refacBUT;
-
     @FXML
     public VBox rightContainer;
-
-    @FXML
-    private Label aktphase;
-
     @FXML
     public TextArea logTextArea;
-
-
     public BabystepTimer babystepTimer;
+    public Exercises exercises;
+    @FXML
+    private BorderPane mainPane;
+    @FXML
+    private Label lblPhase;
+    @FXML
+    private Button btnRed;
+    @FXML
+    private Button btnBackToRed;
+    @FXML
+    private Button btnGreen;
+    @FXML
+    private Button btnRefactor;
     private CodeArea codeArea = new CodeArea();
     private TimeKeeper timeKeeper = new TimeKeeper();
     private Charts charts = new Charts();
-
     private boolean isFirstTestWritten = false;
     private boolean isFirstTestWrittenButReturned = false;
-    public Exercises exercises;
-    private String[] contents = new String[2];
+
     private State state = State.TEST;
 
     @FXML
@@ -82,10 +71,10 @@ public class MainWindowController {
                 });
         mainPane.getStylesheets().add("java-keywords.css");
         mainPane.setCenter(codeArea);
-        this.redBUT.setDisable(true);
-        this.refacBUT.setDisable(true);
-        this.backredBUT.setDisable(true);
-        this.greenBUT.setDisable(false);
+        this.btnRed.setDisable(true);
+        this.btnRefactor.setDisable(true);
+        this.btnBackToRed.setDisable(true);
+        this.btnGreen.setDisable(false);
     }
 
     public void onSaveFilePressed() {
@@ -132,10 +121,10 @@ public class MainWindowController {
             ExerciseView exerciseView = new ExerciseView(this);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
-            this.redBUT.setDisable(true);
-            this.refacBUT.setDisable(true);
-            this.backredBUT.setDisable(true);
-            this.greenBUT.setDisable(false);
+            this.btnRed.setDisable(true);
+            this.btnRefactor.setDisable(true);
+            this.btnBackToRed.setDisable(true);
+            this.btnGreen.setDisable(false);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -145,7 +134,7 @@ public class MainWindowController {
         if (exercises != null) {
             // Compiler Integration
             saveCurrentFile();
-            Compilation compiler = new Compilation(exercises, logTextArea, contents);
+            Compilation compiler = new Compilation(exercises, logTextArea);
             ErrorCounter currentErrorCounter = compiler.getErrorCounter();
             charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
             //compiler.runCompilation();
@@ -161,7 +150,7 @@ public class MainWindowController {
                 logTextArea.appendText("\nError: Der Code muss kompilieren.");
                 return;
             }
-            if (compilation.getNumberOfFailedTests() != 1){
+            if (compilation.getNumberOfFailedTests() != 1) {
                 logTextArea.appendText("\nError: Es muss genau einen fehlschlagenden Test geben.");
                 return;
             }
@@ -173,8 +162,8 @@ public class MainWindowController {
             logTextArea.setText("No exercise selected");
         } else {
             babystepTimer.stopTimer();
-            aktphase.setText("GREEN ; Bearbeite deinen Code");
-            aktphase.setStyle("-fx-text-fill: green;");
+            lblPhase.setText("GREEN ; Bearbeite deinen Code");
+            lblPhase.setStyle("-fx-text-fill: green;");
             saveCurrentFile();
             exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
             replaceCodeAreaTextToCurrent();
@@ -186,18 +175,18 @@ public class MainWindowController {
             state = State.CODE;
             timeKeeper.changeStateTo(state);
 
-            this.backredBUT.setDisable(false);
-            this.redBUT.setDisable(true);
-            this.greenBUT.setDisable(true);
-            this.refacBUT.setDisable(false);
+            this.btnBackToRed.setDisable(false);
+            this.btnRed.setDisable(true);
+            this.btnGreen.setDisable(true);
+            this.btnRefactor.setDisable(false);
         }
     }
 
     public void backToRed() {
         if (isFirstTestWrittenButReturned) isFirstTestWritten = false;
         babystepTimer.stopTimer();
-        aktphase.setText("RED ; Bearbeite deine Tests");
-        aktphase.setStyle("-fx-text-fill: red;");
+        lblPhase.setText("RED ; Bearbeite deine Tests");
+        lblPhase.setStyle("-fx-text-fill: red;");
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
         if (exercises.getCurrentExercise().getConfig().getBabysteps().getValue().contains("True")) {
@@ -208,10 +197,10 @@ public class MainWindowController {
         state = State.TEST;
         timeKeeper.changeStateTo(state);
 
-        this.redBUT.setDisable(true);
-        this.refacBUT.setDisable(true);
-        this.backredBUT.setDisable(true);
-        this.greenBUT.setDisable(false);
+        this.btnRed.setDisable(true);
+        this.btnRefactor.setDisable(true);
+        this.btnBackToRed.setDisable(true);
+        this.btnGreen.setDisable(false);
     }
 
     public void red() {
@@ -220,13 +209,13 @@ public class MainWindowController {
             logTextArea.appendText("\nError: Der Code muss kompilieren.");
             return;
         }
-        if (compilation.getNumberOfFailedTests() > 0){
+        if (compilation.getNumberOfFailedTests() > 0) {
             logTextArea.appendText("\nError: Es darf keinen fehlschlagenden Test geben.");
             return;
         }
         if (babystepTimer != null) babystepTimer.stopTimer();
-        aktphase.setText("RED ; Bearbeite deine Tests");
-        aktphase.setStyle("-fx-text-fill: red;");
+        lblPhase.setText("RED ; Bearbeite deine Tests");
+        lblPhase.setStyle("-fx-text-fill: red;");
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
@@ -237,10 +226,10 @@ public class MainWindowController {
         }
         state = State.TEST;
         timeKeeper.changeStateTo(state);
-        this.redBUT.setDisable(true);
-        this.refacBUT.setDisable(true);
-        this.backredBUT.setDisable(true);
-        this.greenBUT.setDisable(false);
+        this.btnRed.setDisable(true);
+        this.btnRefactor.setDisable(true);
+        this.btnBackToRed.setDisable(true);
+        this.btnGreen.setDisable(false);
 
     }
 
@@ -250,14 +239,14 @@ public class MainWindowController {
             logTextArea.appendText("\nError: Der Code muss kompilieren.");
             return;
         }
-        if (compilation.getNumberOfFailedTests() > 0){
+        if (compilation.getNumberOfFailedTests() > 0) {
             logTextArea.appendText("\nError: Es darf keinen fehlschlagenden Test geben.");
             return;
         }
         isFirstTestWrittenButReturned = false;
         if (babystepTimer != null) babystepTimer.stopTimer();
-        aktphase.setText("REFRACTOR ; Code verbessern");
-        aktphase.setStyle("-fx-text-fill: black;");
+        lblPhase.setText("REFRACTOR ; Code verbessern");
+        lblPhase.setStyle("-fx-text-fill: black;");
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         replaceCodeAreaTextToCurrent();
@@ -269,12 +258,10 @@ public class MainWindowController {
         timeKeeper.changeStateTo(state);
 
 
-        this.greenBUT.setDisable(true);
-        this.backredBUT.setDisable(true);
-        this.redBUT.setDisable(false);
-        this.refacBUT.setDisable(true);
-
-
+        this.btnGreen.setDisable(true);
+        this.btnBackToRed.setDisable(true);
+        this.btnRed.setDisable(false);
+        this.btnRefactor.setDisable(true);
     }
 
     public void chartDisplay() {

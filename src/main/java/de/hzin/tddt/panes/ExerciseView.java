@@ -43,15 +43,14 @@ public class ExerciseView extends TreeView {
         toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (toggleGroup.getSelectedToggle() != null) {
                 int selectedIndex = toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
-                if(controller.rightContainer.isVisible()) controller.saveCurrentFile();
+                if (controller.rightContainer.isVisible()) controller.saveCurrentFile();
                 exercises.setCurrentIndex(selectedIndex);
                 controller.replaceCodeAreaTextToCurrent();
                 controller.lblDescription.setText("Beschreibung: " + exercises.getCurrentExercise().getDescription());
                 if (exercises.getCurrentExercise().getConfig().getBabysteps().getValue().contains("True")) {
                     controller.babystepTimer.setVisible(true);
                     controller.babystepTimer.startTimer(exercises.getCurrentExercise().getConfig().getBabysteps().getTime());
-                }
-                else {
+                } else {
                     controller.babystepTimer.setVisible(false);
                     controller.babystepTimer.stopTimer();
                 }

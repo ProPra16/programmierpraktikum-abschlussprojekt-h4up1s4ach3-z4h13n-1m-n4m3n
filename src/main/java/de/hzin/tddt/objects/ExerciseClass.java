@@ -9,11 +9,20 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author Aron Weisermann
  */
-public class ExerciseClass{
+public class ExerciseClass {
     private String name;
     private RevertableCode code = new RevertableCode();
     private ExerciseTest test;
     private boolean isCurrentTest = true;
+
+    public ExerciseClass() {
+
+    }
+
+    public ExerciseClass(String className, String classContent) {
+        this.name = className;
+        this.code.addContent(classContent);
+    }
 
     @XmlElement
     public ExerciseTest getTest() {
@@ -35,7 +44,7 @@ public class ExerciseClass{
 
     @XmlElement
     public String getCode() {
-        if(!(code.getCurrentContent() == null)) {
+        if (!(code.getCurrentContent() == null)) {
             return code.getCurrentContent();
         } else {
             return "";
@@ -46,20 +55,11 @@ public class ExerciseClass{
         this.code.addContent(code);
     }
 
-    public ExerciseClass() {
-
-    }
-
-    public ExerciseClass(String className, String classContent) {
-        this.name = className;
-        this.code.addContent(classContent);
-    }
-
-    public void setIsCurrentTest(boolean isCurrentTest){
+    public void setIsCurrentTest(boolean isCurrentTest) {
         this.isCurrentTest = isCurrentTest;
     }
 
-    public boolean isCurrentTest(){
+    public boolean isCurrentTest() {
         return isCurrentTest;
     }
 }

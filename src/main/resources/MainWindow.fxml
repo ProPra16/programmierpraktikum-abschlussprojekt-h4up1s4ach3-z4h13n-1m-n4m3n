@@ -35,12 +35,12 @@
             <Button mnemonicParsing="false" onAction="#chartDisplay" prefHeight="25.0" prefWidth="230.0" text="Tracking Data" />
             <Label fx:id="lblDescription" text="Beschreibung: " wrapText="true" />
             <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Phase: " />
-            <Label fx:id="aktphase" prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
-            <Button fx:id="compilationButton" mnemonicParsing="false" onAction="#compile" prefHeight="25.0" prefWidth="200.0" text="Compile!" />
-            <Button fx:id="greenBUT" mnemonicParsing="false" onAction="#green" prefHeight="25.0" prefWidth="201.0" text="Weiter zu GREEN" />
-            <Button fx:id="backredBUT" mnemonicParsing="false" onAction="#backToRed" prefHeight="25.0" prefWidth="200.0" text="Zurück zu RED" />
-            <Button fx:id="refacBUT" mnemonicParsing="false" onAction="#refac" prefHeight="25.0" prefWidth="220.0" text="Weiter zu REFACTOR" />
-            <Button fx:id="redBUT" mnemonicParsing="false" onAction="#red" prefHeight="25.0" prefWidth="207.0" text="Weiter zu RED" />
+            <Label fx:id="lblPhase" prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
+            <Button fx:id="btnCompile" mnemonicParsing="false" onAction="#compile" prefHeight="25.0" prefWidth="200.0" text="Compile!" />
+            <Button fx:id="btnGreen" mnemonicParsing="false" onAction="#green" prefHeight="25.0" prefWidth="201.0" text="Weiter zu GREEN" />
+            <Button fx:id="btnBackToRed" mnemonicParsing="false" onAction="#backToRed" prefHeight="25.0" prefWidth="200.0" text="Zurück zu RED" />
+            <Button fx:id="btnRefactor" mnemonicParsing="false" onAction="#refac" prefHeight="25.0" prefWidth="220.0" text="Weiter zu REFACTOR" />
+            <Button fx:id="btnRed" mnemonicParsing="false" onAction="#red" prefHeight="25.0" prefWidth="207.0" text="Weiter zu RED" />
             <Label prefHeight="17.0" prefWidth="217.0" text="Phasenüberblick : " />
             <ImageView fitHeight="342.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true">
                <image>

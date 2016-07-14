@@ -27,41 +27,41 @@ public class Exercises {
         return exercises;
     }
 
-    public Exercise getExerciseByIndex(int index){
+    public Exercise getExerciseByIndex(int index) {
         return exercises.get(index);
     }
 
-    public Exercise getCurrentExercise(){
+    public Exercise getCurrentExercise() {
         return exercises.get(currentIndex);
     }
 
-    public void setCurrentIndex(int i){
-        currentIndex = i;
+    public int getCurrentIndex() {
+        return currentIndex;
     }
 
-    public int getCurrentIndex(){
-        return currentIndex;
+    public void setCurrentIndex(int i) {
+        currentIndex = i;
     }
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
     }
 
-    public void saveExercises(){
+    public void saveExercises() {
         try {
-                XMLHandler.marshal(this, file);
+            XMLHandler.marshal(this, file);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (JAXBException e) {
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
 
+    public File getFile() {
+        return file;
+    }
+
     public void setFile(File file) {
         this.file = file;
-    }
-    public File getFile(){
-        return file;
     }
 }

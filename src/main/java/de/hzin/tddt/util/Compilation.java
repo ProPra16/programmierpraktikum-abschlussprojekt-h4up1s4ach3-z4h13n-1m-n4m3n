@@ -11,7 +11,6 @@ import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
 import vk.core.internal.InternalCompiler;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,30 +29,27 @@ public class Compilation {
     private List<CompilationUnit> additionalResources = new ArrayList();
     private ErrorCounter errorCounter = new ErrorCounter();
 
-    public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
+    public Compilation(Exercises exercises, TextArea inTextArea) {
         addAdditionalResource("StdRandom");
         addAdditionalResource("StdOut");
-        //addWebResource("http://introcs.cs.princeton.edu/java/stdlib/StdOut.java","StdOut");
         //Exercise
+        //addWebResource("http://introcs.cs.princeton.edu/java/stdlib/StdOut.java","StdOut");
         textArea = inTextArea;
-        if(exercises != null){
-            List<Exercise> exerciseList = exercises.getExercisesList();
+        if (exercises != null) {
             Exercise classAndTest = exercises.getCurrentExercise();
             List<ExerciseClass> currentClasses = classAndTest.getClasses();
             cusList = new ArrayList<CompilationUnit>();
-            for(CompilationUnit i : additionalResources){
+            for (CompilationUnit i : additionalResources) {
                 cusList.add(i);
             }
             for (int i = 1; i <= currentClasses.size(); i++) {
-                //System.out.println(currentClasses.get(i-1).getName());
-                ExerciseTest currentTest = currentClasses.get(i-1).getTest();
-                cusList.add(new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false));
+                ExerciseTest currentTest = currentClasses.get(i - 1).getTest();
+                cusList.add(new CompilationUnit(currentClasses.get(i - 1).getName(), currentClasses.get(i - 1).getCode(), false));
                 cusList.add(new CompilationUnit(currentTest.getName(), currentTest.getCode(), true));
             }
             cus = cusList.toArray(new CompilationUnit[cusList.size()]);
             runCompilation();
-        }
-        else{
+        } else {
             textArea.setText("No exercise selected");
         }
     }
@@ -66,11 +62,11 @@ public class Compilation {
         runCompilation();
     }
 
-    public boolean hasCompileErrors(){
+    public boolean hasCompileErrors() {
         return compilerResult.hasCompileErrors();
     }
 
-    public int getNumberOfFailedTests(){
+    public int getNumberOfFailedTests() {
         return testResult.getNumberOfFailedTests();
     }
 
@@ -84,7 +80,7 @@ public class Compilation {
             String errors = "";
             for (int i = 0; i < cus.length; i++) {
                 Collection<CompileError> currentErrorList = compilerResult.getCompilerErrorsForCompilationUnit(cus[i]);
-                for(CompileError currentError : currentErrorList){
+                for (CompileError currentError : currentErrorList) {
                     errors = errors + "[Zeile:" + currentError.getLineNumber() + "]" + currentError.toString() + "\n";
                     errorCounter.countError(currentError.toString());
                 }
@@ -94,8 +90,7 @@ public class Compilation {
             if (textArea != null) {
                 String text = String.format("Successfully Compiled\nSuccessful Tests:%4d\nFailed Tests:%8d", testResult.getNumberOfSuccessfulTests(), testResult.getNumberOfFailedTests());
                 textArea.setText(text);
-            }
-            else {
+            } else {
                 System.out.println("Successfully Compiled\nSuccessful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
             }
             if (testResult.getNumberOfFailedTests() >= 1) {
@@ -118,20 +113,20 @@ public class Compilation {
         usedClasses = classes;
     }
 
-    private void addAdditionalResource(String addClass){
+    private void addAdditionalResource(String addClass) {
         String addClassPath = "lib/" + addClass;
         Filehandler file = new Filehandler(addClassPath);
-        additionalResources.add(new CompilationUnit(addClass,file.getContent(),false));
+        additionalResources.add(new CompilationUnit(addClass, file.getContent(), false));
     }
 
-    private void addWebResource(String addWebSite, String addWebClass){
+    private void addWebResource(String addWebSite, String addWebClass) {
         Filehandler file = null;
         try {
-            file = new Filehandler(addWebSite,addWebClass);
+            file = new Filehandler(addWebSite, addWebClass);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        additionalResources.add(new CompilationUnit(addWebClass,file.getContent(),false));
+        additionalResources.add(new CompilationUnit(addWebClass, file.getContent(), false));
     }
 
     public ErrorCounter getErrorCounter() {

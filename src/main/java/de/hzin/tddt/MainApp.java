@@ -28,7 +28,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(mainPane);
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
-            if(ConfirmBox.display("EXIT","Are you sure?")) {
+            if (ConfirmBox.display("EXIT", "Are you sure?")) {
                 primaryStage.close();
             }
         });

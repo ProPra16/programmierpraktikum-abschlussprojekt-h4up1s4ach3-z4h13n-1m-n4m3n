@@ -9,20 +9,20 @@ import java.util.List;
 public class RevertableCode {
     List<String> content = new ArrayList<>();
 
-    public RevertableCode(){
+    public RevertableCode() {
         content.add("");
     }
 
-    public void addContent(String tmpContent){
+    public void addContent(String tmpContent) {
         content.add(tmpContent);
     }
 
-    public String getCurrentContent(){
-        return content.get(content.size()-1);
+    public String getCurrentContent() {
+        return content.get(content.size() - 1);
     }
 
-    public String getPastContent(){
-        if(content.size() > 1) return content.get(content.size()-2);
-        else                   return content.get(0);
+    public String getPastContent() {
+        if (content.size() > 1) return content.get(content.size() - 2);
+        else return content.get(0);
     }
 }

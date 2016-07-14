@@ -9,9 +9,18 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author Aron Weisermann
  */
-public class ExerciseTest{
+public class ExerciseTest {
     private String name;
     private String code;
+
+    public ExerciseTest() {
+
+    }
+
+    public ExerciseTest(String className, String classContent) {
+        this.name = className;
+        this.code = classContent;
+    }
 
     @XmlAttribute
     public String getName() {
@@ -29,14 +38,5 @@ public class ExerciseTest{
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public ExerciseTest() {
-
-    }
-
-    public ExerciseTest(String className, String classContent) {
-        this.name = className;
-        this.code = classContent;
     }
 }

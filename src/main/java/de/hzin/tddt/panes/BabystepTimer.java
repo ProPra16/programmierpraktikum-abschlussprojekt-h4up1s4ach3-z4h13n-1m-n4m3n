@@ -16,27 +16,27 @@ public class BabystepTimer extends Label {
     private int timePassed;
     private Timeline timeLine;
 
-    public BabystepTimer(MainWindowController controller){
+    public BabystepTimer(MainWindowController controller) {
         timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             timePassed++;
-            if (time-timePassed <= 0) {
+            if (time - timePassed <= 0) {
                 stopTimer();
                 showTimeExpired();
                 controller.replaceCodeAreaTextToCurrent();
-                timePassed=0;
+                timePassed = 0;
                 startTimer(time);
             }
-            setText("Zeit:" + String.valueOf(time-timePassed));
+            setText("Zeit:" + String.valueOf(time - timePassed));
         }));
         timeLine.setCycleCount(Animation.INDEFINITE);
     }
 
-    public void startTimer(int s){
+    public void startTimer(int s) {
         time = s;
         timeLine.play();
     }
 
-    private void showTimeExpired(){
+    private void showTimeExpired() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Zeit abgelaufen!");
         alert.setHeaderText(null);
@@ -45,7 +45,7 @@ public class BabystepTimer extends Label {
         alert.show();
     }
 
-    public void stopTimer(){
+    public void stopTimer() {
         timeLine.stop();
     }
 

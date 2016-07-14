@@ -1,6 +1,7 @@
 package de.hzin.tddt.util; /**
  * Created by julius on 27.06.16.
  */
+
 import java.io.*;
 import java.net.URL;
 
