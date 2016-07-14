@@ -6,11 +6,10 @@ import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.BabystepTimer;
 import de.hzin.tddt.panes.ExerciseView;
-import de.hzin.tddt.util.Charts;
-import de.hzin.tddt.util.Compilation;
-import de.hzin.tddt.util.TimeKeeper;
-import de.hzin.tddt.util.XMLHandler;
+import de.hzin.tddt.panes.Toolbar;
+import de.hzin.tddt.util.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -34,9 +33,6 @@ public class MainWindowController {
 
     @FXML
     private BorderPane mainPane;
-
-    @FXML
-    private Button btnSave;
 
     @FXML
     private Button redBUT;
@@ -64,16 +60,17 @@ public class MainWindowController {
     @FXML
     private VBox topContainer;
 
-    public Exercises exercises;
+    private Exercises exercises;
     private String[] contents = new String[2];
     private State state = State.TEST;
     private CodeArea codeArea = new CodeArea();
     private TimeKeeper timeKeeper = new TimeKeeper();
+    private Charts charts = new Charts();
 
     @FXML
     public void initialize() throws URISyntaxException {
         babystepTimer = new BabystepTimer();
-        rightContainer.getChildren().add(0, babystepTimer);
+        rightContainer.getChildren().add(0,babystepTimer);
 
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
@@ -130,7 +127,7 @@ public class MainWindowController {
             exercises = XMLHandler.unmarshal(file);
             exercises.setFile(file);
             codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getTest().getCode());
-            ExerciseView exerciseView = new ExerciseView(this);
+            ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
             this.redBUT.setDisable(true);
@@ -151,15 +148,17 @@ public class MainWindowController {
             exerciseClass.get(0).setCode(codeArea.getText());
             saveCurrentFile();
         }
-
+        ErrorCounter currentErrorCounter = compiler.getErrorCounter();
+        charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(),currentErrorCounter.getIdentifiers(),currentErrorCounter.getComputation(),currentErrorCounter.getReturnStatements(),currentErrorCounter.getAccessToStaticEntities());
         //compiler.runCompilation();
     }
 
 
     public void green() {
-        if (exercises == null) {
+        if(exercises == null){
             logTextArea.setText("No exercise selected");
-        } else {
+        }
+        else {
             babystepTimer.stopTimer();
             aktphase.setText("GREEN ; Bearbeite deinen Code");
             aktphase.setStyle("-fx-text-fill: green;");
@@ -236,8 +235,7 @@ public class MainWindowController {
 
     public void chartDisplay() {
         timeKeeper.refreshTime();
-        Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
+        charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
-
 
 }
