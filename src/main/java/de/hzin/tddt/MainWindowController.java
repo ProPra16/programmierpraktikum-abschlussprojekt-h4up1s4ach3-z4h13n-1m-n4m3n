@@ -83,7 +83,11 @@ public class MainWindowController {
                 });
         mainPane.getStylesheets().add("java-keywords.css");
         mainPane.setCenter(codeArea);
-        topContainer.getChildren().add(new Toolbar());
+        this.redBUT.setDisable(true);
+        this.refacBUT.setDisable(true);
+        this.backredBUT.setDisable(true);
+        this.greenBUT.setDisable(false);
+        //topContainer.getChildren().add(new Toolbar());
     }
 
     public void onSaveFilePressed() {
@@ -124,7 +128,7 @@ public class MainWindowController {
         try {
             exercises = XMLHandler.unmarshal(file);
             exercises.setFile(file);
-            codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getCode());
+            codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getTest().getCode());
             ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
@@ -140,8 +144,9 @@ public class MainWindowController {
             Exercise exercise = exercises.getCurrentExercise();
             List<ExerciseClass> exerciseClass = exercise.getClasses();
             exerciseClass.get(0).setCode(codeArea.getText());
+            saveCurrentFile();
         }
-        saveCurrentFile();
+
         //compiler.runCompilation();
     }
 
