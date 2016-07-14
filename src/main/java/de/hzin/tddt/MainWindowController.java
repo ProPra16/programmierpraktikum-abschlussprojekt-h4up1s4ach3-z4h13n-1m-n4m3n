@@ -22,7 +22,7 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.net.URISyntaxException;
 
-import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
+import static de.hzin.tddt.util.JavaKeywordsAsync.computeHighlighting;
 
 public class MainWindowController {
 

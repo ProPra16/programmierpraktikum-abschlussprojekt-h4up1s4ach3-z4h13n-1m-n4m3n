@@ -1,4 +1,4 @@
-package de.hzin.tddt;
+package de.hzin.tddt.util;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class JavaKeywordsAsync {
                     + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
     );
 
-    protected static StyleSpans<Collection<String>> computeHighlighting(String text) {
+    public static StyleSpans<Collection<String>> computeHighlighting(String text) {
         Matcher matcher = PATTERN.matcher(text);
         int lastKwEnd = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder

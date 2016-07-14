@@ -9,7 +9,7 @@ import javafx.geometry.*;
 
 public class ConfirmBox {
     static boolean answer;
-    static boolean display(String title, String message){
+    public static boolean display(String title, String message){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
