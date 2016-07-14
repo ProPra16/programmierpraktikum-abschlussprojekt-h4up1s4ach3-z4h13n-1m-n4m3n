@@ -6,41 +6,40 @@
         <classes>
             <class name="Signum">
                 <code>
-                    /******************************************************************************
-                    * Compilation: javac Signum.java
-                    * Execution: java Signum n
-                    *
-                    * Eingabe und Ausgabe: Ueber main Funktion bereits vorgegeben.
-                    *
-                    ******************************************************************************/
+/******************************************************************************
+* Compilation: javac Signum.java
+* Execution: java Signum n
+*
+* Eingabe und Ausgabe: Ueber main Funktion bereits vorgegeben.
+*
+******************************************************************************/
 
-                    public class Signum {
-                    public static void main(String[] args) {
-                    int n = Integer.parseInt(args[0]);
-                    System.out.println(signum(n));
-                    }
+public class Signum {
+public static void main(String[] args) {
+int n = Integer.parseInt(args[0]);
+System.out.println(signum(n));
+}
 
-                    public static int signum(int n){
-if(n&gt;=0) return 1;
-return -1;
-                    }
-                    }
+public static int signum(int n){
+
+}
+}
                 </code>
                 <test name="SignumTest">
-                    import static org.junit.Assert.*;
-                    import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
-                    public class SignumTest {
+public class SignumTest {
 
-                    @Test
-                    public void testPositiveInput() {
-                    assertEquals(1, Signum.signum(10));
-                    }
-		@Test
-                    public void testPositiveInput2() {
-                    assertEquals(-1, Signum.signum(1));
-                    }
-                    }
+@Test
+public void testPositiveInput() {
+assertEquals(1, Signum.signum(10));
+}
+@Test
+public void testPositiveInput2() {
+assertEquals(-1, Signum.signum(1));
+}
+}
                 </test>
             </class>
         </classes>
