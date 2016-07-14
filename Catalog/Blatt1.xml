@@ -13,12 +13,13 @@ public class RomanNumberConverter {
 }
                 </code>
                 <test name="RomanNumberConverterTest">
-public class RomanNumberConverter {
-int a;
-    public static int test(int c){
-     return c;
-    }
-}
+import static org.junit.Assert.*;
+import org.junit.Test;
+     public class RomanNumbersTest {
+         @Test
+          public void testSomething() {
+          }
+ }
                 </test>
             </class>
         </classes>
