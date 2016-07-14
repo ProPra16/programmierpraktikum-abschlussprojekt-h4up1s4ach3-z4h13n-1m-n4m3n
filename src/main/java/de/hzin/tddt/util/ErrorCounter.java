@@ -10,6 +10,13 @@ public class ErrorCounter {
     private int returnStatements = 0;
     private int accessToStaticEntities = 0;
 
+    public void addErrorCounter(int n_syntax, int n_identifiers, int n_computation, int n_returnStatements, int n_accessToStaticEntities){
+        syntax += n_syntax;
+        identifiers += n_identifiers;
+        computation += n_computation;
+        returnStatements += n_returnStatements;
+        accessToStaticEntities += n_accessToStaticEntities;
+    }
 
     public void countError(String error) {
         if (error.contains("expected") ||

@@ -9,9 +9,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.chart.*;
@@ -19,7 +22,9 @@ import javafx.scene.Group;
 
 public class Charts {
 
-    public static void display(double red, double green, double refactor) {
+    private ErrorCounter errorCounter = new ErrorCounter();
+
+    public void display(double red, double green, double refactor) {
         int normRed = (int) ( red*100/(red+green+refactor));
         int normGreen = (int) (green*100/(red+green+refactor));
         int normRefactor = (int) (refactor*100/(red+green+refactor));
@@ -43,11 +48,27 @@ public class Charts {
                 "green",
                 "darkblue"
         );
+        Label errorStats = new Label();
+        errorStats.setStyle("-fx-font-family: monospace");
+        errorStats.setText("ERRORS:                                \n" +
+                "Syntax: " + errorCounter.getSyntax() + "\n" +
+                "Identifier: " + errorCounter.getIdentifiers() + "\n" +
+                "Computation: " + errorCounter.getComputation() + "\n" +
+                "Return Statements: " + errorCounter.getReturnStatements() + "\n" +
+                "Access to Static Entities: " + errorCounter.getAccessToStaticEntities());
+
+        Separator separator = new Separator();
+        separator.setOrientation(Orientation.VERTICAL);
 
         chart.setTitle("Tracking Data");
+
+        HBox hBox = new HBox();
+        hBox.getChildren().add(chart);
+        hBox.getChildren().add(separator);
+        hBox.getChildren().add(createBarchart());
         Group group = new Group();
 
-        group.getChildren().add(chart);
+        group.getChildren().add(hBox);
         Scene scene = new Scene(group);
         window.setScene(scene);
         showValues(chart,group,times);
@@ -98,4 +119,29 @@ public class Charts {
         }
         group.getChildren().add(caption);
     }
+
+    public ErrorCounter getErrorCounter() {
+        return errorCounter;
+    }
+
+    public BarChart createBarchart() {
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        final BarChart<String,Number> bc =
+                new BarChart<String,Number>(xAxis,yAxis);
+        bc.setTitle("Error Summary");
+        //xAxis.setLabel("Error Type");
+        yAxis.setLabel("Error Count");
+
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Errors");
+        series.getData().add(new XYChart.Data("Syntax", errorCounter.getSyntax()));
+        series.getData().add(new XYChart.Data("Computation", errorCounter.getComputation()));
+        series.getData().add(new XYChart.Data("Return Statements", errorCounter.getReturnStatements()));
+        series.getData().add(new XYChart.Data("Access to Static Entities", errorCounter.getAccessToStaticEntities()));
+        series.getData().add(new XYChart.Data("Identifiers", errorCounter.getIdentifiers()));
+        bc.getData().addAll(series);
+        return bc;
+    }
+
 }

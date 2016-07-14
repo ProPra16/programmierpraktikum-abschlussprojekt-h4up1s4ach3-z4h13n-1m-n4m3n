@@ -7,10 +7,7 @@ import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.BabystepTimer;
 import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.panes.Toolbar;
-import de.hzin.tddt.util.Charts;
-import de.hzin.tddt.util.Compilation;
-import de.hzin.tddt.util.TimeKeeper;
-import de.hzin.tddt.util.XMLHandler;
+import de.hzin.tddt.util.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -68,6 +65,7 @@ public class MainWindowController {
     private State state = State.TEST;
     private CodeArea codeArea = new CodeArea();
     private TimeKeeper timeKeeper = new TimeKeeper();
+    private Charts charts = new Charts();
 
     @FXML
     public void initialize() throws URISyntaxException {
@@ -150,7 +148,8 @@ public class MainWindowController {
             exerciseClass.get(0).setCode(codeArea.getText());
             saveCurrentFile();
         }
-
+        ErrorCounter currentErrorCounter = compiler.getErrorCounter();
+        charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(),currentErrorCounter.getIdentifiers(),currentErrorCounter.getComputation(),currentErrorCounter.getReturnStatements(),currentErrorCounter.getAccessToStaticEntities());
         //compiler.runCompilation();
     }
 
@@ -236,7 +235,7 @@ public class MainWindowController {
 
     public void chartDisplay() {
         timeKeeper.refreshTime();
-        Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
+        charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
 
 }
