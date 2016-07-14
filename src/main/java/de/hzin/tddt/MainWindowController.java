@@ -137,13 +137,8 @@ public class MainWindowController {
 
     public void compile() {
         // Compiler Integration
+        saveCurrentFile();
         Compilation compiler = new Compilation(exercises, logTextArea, contents);
-        if (exercises != null) {
-            Exercise exercise = exercises.getCurrentExercise();
-            List<ExerciseClass> exerciseClass = exercise.getClasses();
-            exerciseClass.get(0).setCode(codeArea.getText());
-            saveCurrentFile();
-        }
         ErrorCounter currentErrorCounter = compiler.getErrorCounter();
         charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
         //compiler.runCompilation();
@@ -174,6 +169,27 @@ public class MainWindowController {
             this.greenBUT.setDisable(true);
             this.refacBUT.setDisable(false);
         }
+    }
+
+    public void backToRed(){
+        if (babystepTimer != null) babystepTimer.stopTimer();
+        aktphase.setText("RED ; Bearbeite deine Tests");
+        aktphase.setStyle("-fx-text-fill: red;");
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
+        replaceCodeAreaTextToCurrent();
+        if (exercises.getCurrentExercise().getConfig().getBabysteps().getValue().contains("True")) {
+            babystepTimer.setVisible(true);
+            int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
+            babystepTimer.startTimer(time);
+        }
+        state = State.TEST;
+        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
+            timeKeeper.changeStateTo(state);
+        }
+        this.redBUT.setDisable(true);
+        this.refacBUT.setDisable(true);
+        this.backredBUT.setDisable(true);
+        this.greenBUT.setDisable(false);
     }
 
     public void red() {
