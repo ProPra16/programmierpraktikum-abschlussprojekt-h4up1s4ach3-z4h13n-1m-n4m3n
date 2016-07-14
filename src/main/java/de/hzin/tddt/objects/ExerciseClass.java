@@ -2,7 +2,6 @@ package de.hzin.tddt.objects;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * ExerciseClass.java
@@ -12,7 +11,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 public class ExerciseClass{
     private String name;
-    private String code;
+    private RevertableCode code = new RevertableCode();
     private ExerciseTest test;
     private boolean isCurrentTest = true;
 
@@ -36,11 +35,15 @@ public class ExerciseClass{
 
     @XmlElement
     public String getCode() {
-        return code;
+        if(!(code.getCurrentContent() == null)) {
+            return code.getCurrentContent();
+        } else {
+            return "";
+        }
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.code.addContent(code);
     }
 
     public ExerciseClass() {
@@ -49,7 +52,7 @@ public class ExerciseClass{
 
     public ExerciseClass(String className, String classContent) {
         this.name = className;
-        this.code = classContent;
+        this.code.addContent(classContent);
     }
 
     public void setIsCurrentTest(boolean isCurrentTest){
