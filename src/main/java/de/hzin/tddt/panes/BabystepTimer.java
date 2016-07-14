@@ -1,5 +1,6 @@
 package de.hzin.tddt.panes;
 
+import de.hzin.tddt.MainWindowController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,17 +13,20 @@ import javafx.util.Duration;
  */
 public class BabystepTimer extends Label {
     private int time;
+    private int timePassed;
     private Timeline timeLine;
 
-    public BabystepTimer(){
+    public BabystepTimer(MainWindowController controller){
         timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            time--;
-            if (time <= 0) {
+            timePassed++;
+            if (time-timePassed <= 0) {
                 stopTimer();
                 showTimeExpired();
-                setText("Zeit:" + String.valueOf(time));
+                controller.replaceCodeAreaTextToCurrent();
+                timePassed=0;
+                startTimer(time);
             }
-            setText("Zeit:" + String.valueOf(time));
+            setText("Zeit:" + String.valueOf(time-timePassed));
         }));
         timeLine.setCycleCount(Animation.INDEFINITE);
     }
@@ -38,7 +42,7 @@ public class BabystepTimer extends Label {
         alert.setHeaderText(null);
         alert.setContentText("Die Zeit ist leider abgelaufen. Du musst die Phase nochmal wiederholen.");
 
-        alert.showAndWait();
+        alert.show();
     }
 
     public void stopTimer(){

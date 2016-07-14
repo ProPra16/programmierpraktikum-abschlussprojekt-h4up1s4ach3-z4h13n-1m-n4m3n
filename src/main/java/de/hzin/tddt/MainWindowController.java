@@ -67,7 +67,7 @@ public class MainWindowController {
 
     @FXML
     public void initialize() throws URISyntaxException {
-        babystepTimer = new BabystepTimer();
+        babystepTimer = new BabystepTimer(this);
         rightContainer.getChildren().add(0, babystepTimer);
 
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
