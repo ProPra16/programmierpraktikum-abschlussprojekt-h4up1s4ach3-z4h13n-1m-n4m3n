@@ -29,7 +29,8 @@ public class Compilation {
 
     public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
         addAdditionalResource("StdRandom");
-        addWebResource("http://introcs.cs.princeton.edu/java/stdlib/StdOut.java","StdOut");
+        addAdditionalResource("StdOut");
+        //addWebResource("http://introcs.cs.princeton.edu/java/stdlib/StdOut.java","StdOut");
         //Exercise
         textArea = inTextArea;
         if(exercises != null){
@@ -49,6 +50,7 @@ public class Compilation {
 
 
             cus = cusList.toArray(new CompilationUnit[cusList.size()]);
+            System.out.println(cus.length);
             runCompilation();
         }
         else{
@@ -106,8 +108,8 @@ public class Compilation {
     }
 
     private void addAdditionalResource(String addClass){
-        addClass = "lib/" + addClass;
-        Filehandler file = new Filehandler(addClass);
+        String addClassPath = "lib/" + addClass;
+        Filehandler file = new Filehandler(addClassPath);
         additionalResources.add(new CompilationUnit(addClass,file.getContent(),false));
     }
 
