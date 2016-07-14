@@ -6,7 +6,10 @@ import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.BabystepTimer;
 import de.hzin.tddt.panes.Charts;
 import de.hzin.tddt.panes.ExerciseView;
-import de.hzin.tddt.util.*;
+import de.hzin.tddt.util.Compilation;
+import de.hzin.tddt.util.ErrorCounter;
+import de.hzin.tddt.util.TimeKeeper;
+import de.hzin.tddt.util.XMLHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -86,7 +89,7 @@ public class MainWindowController {
     }
 
     public void onSaveFilePressed() {
-        if(exercises!=null){
+        if (exercises != null) {
             exercises.saveExercises();
             logTextArea.appendText("Erfolgreich unter " + exercises.getFile().getAbsolutePath() + " gespeichert.");
         }
@@ -141,7 +144,7 @@ public class MainWindowController {
     }
 
     public Compilation compile() {
-        if(exercises != null){
+        if (exercises != null) {
             // Compiler Integration
             saveCurrentFile();
             Compilation compiler = new Compilation(exercises, logTextArea, contents);
@@ -149,8 +152,7 @@ public class MainWindowController {
             charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
             //compiler.runCompilation();
             return compiler;
-        }
-        else return null;
+        } else return null;
     }
 
 
@@ -178,9 +180,8 @@ public class MainWindowController {
                 babystepTimer.startTimer(time);
             }
             state = State.CODE;
-            if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-                timeKeeper.changeStateTo(state);
-            }
+            timeKeeper.changeStateTo(state);
+
             this.backredBUT.setDisable(false);
             this.redBUT.setDisable(true);
             this.greenBUT.setDisable(true);
@@ -201,9 +202,8 @@ public class MainWindowController {
             babystepTimer.startTimer(time);
         }
         state = State.TEST;
-        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-            timeKeeper.changeStateTo(state);
-        }
+        timeKeeper.changeStateTo(state);
+
         this.redBUT.setDisable(true);
         this.refacBUT.setDisable(true);
         this.backredBUT.setDisable(true);
@@ -226,9 +226,7 @@ public class MainWindowController {
             babystepTimer.startTimer(time);
         }
         state = State.TEST;
-        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-            timeKeeper.changeStateTo(state);
-        }
+        timeKeeper.changeStateTo(state);
         this.redBUT.setDisable(true);
         this.refacBUT.setDisable(true);
         this.backredBUT.setDisable(true);
@@ -252,9 +250,8 @@ public class MainWindowController {
 
         state = State.REFACTOR;
 
-        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-            timeKeeper.changeStateTo(state);
-        }
+        timeKeeper.changeStateTo(state);
+
 
         this.greenBUT.setDisable(true);
         this.backredBUT.setDisable(true);
