@@ -3,6 +3,7 @@ package de.hzin.tddt.panes;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
@@ -18,6 +19,7 @@ public class BabystepTimer extends Label {
             time--;
             if (time <= 0) {
                 stopTimer();
+                showTimeExpired();
                 setText("Zeit:" + String.valueOf(time));
             }
             setText("Zeit:" + String.valueOf(time));
@@ -28,6 +30,15 @@ public class BabystepTimer extends Label {
     public void startTimer(int s){
         time = s;
         timeLine.play();
+    }
+
+    private void showTimeExpired(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Zeit abgelaufen!");
+        alert.setHeaderText(null);
+        alert.setContentText("Die Zeit ist leider abgelaufen. Du musst die Phase nochmal wiederholen.");
+
+        alert.showAndWait();
     }
 
     public void stopTimer(){

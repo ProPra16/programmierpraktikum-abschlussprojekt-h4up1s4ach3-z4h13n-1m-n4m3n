@@ -6,10 +6,8 @@ import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.BabystepTimer;
 import de.hzin.tddt.panes.ExerciseView;
-import de.hzin.tddt.panes.Toolbar;
 import de.hzin.tddt.util.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -49,7 +47,7 @@ public class MainWindowController {
     @FXML
     private VBox rightContainer;
 
-    private BabystepTimer babystepTimer;
+    public BabystepTimer babystepTimer;
 
     @FXML
     private Label aktphase;
@@ -57,8 +55,6 @@ public class MainWindowController {
     @FXML
     public TextArea logTextArea;
 
-    @FXML
-    private VBox topContainer;
 
     public Exercises exercises;
     private String[] contents = new String[2];
@@ -70,7 +66,7 @@ public class MainWindowController {
     @FXML
     public void initialize() throws URISyntaxException {
         babystepTimer = new BabystepTimer();
-        rightContainer.getChildren().add(0,babystepTimer);
+        rightContainer.getChildren().add(0, babystepTimer);
 
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
 
@@ -149,34 +145,35 @@ public class MainWindowController {
             saveCurrentFile();
         }
         ErrorCounter currentErrorCounter = compiler.getErrorCounter();
-        charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(),currentErrorCounter.getIdentifiers(),currentErrorCounter.getComputation(),currentErrorCounter.getReturnStatements(),currentErrorCounter.getAccessToStaticEntities());
+        charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
         //compiler.runCompilation();
     }
 
 
     public void green() {
-        if(exercises == null){
+        if (exercises == null) {
             logTextArea.setText("No exercise selected");
-        }
-        else {
+        } else {
             babystepTimer.stopTimer();
             aktphase.setText("GREEN ; Bearbeite deinen Code");
             aktphase.setStyle("-fx-text-fill: green;");
             saveCurrentFile();
             exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
             replaceCodeAreaTextToCurrent();
-            if (babystepTimer != null) {
+            if (exercises.getCurrentExercise().getConfig().getBabysteps().getValue().contains("True")) {
+                babystepTimer.setVisible(true);
                 int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
                 babystepTimer.startTimer(time);
             }
             state = State.CODE;
-            timeKeeper.changeStateTo(state);
+            if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
+                timeKeeper.changeStateTo(state);
+            }
             this.backredBUT.setDisable(false);
             this.redBUT.setDisable(true);
             this.greenBUT.setDisable(true);
             this.refacBUT.setDisable(false);
         }
-
     }
 
     public void red() {
@@ -186,12 +183,15 @@ public class MainWindowController {
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
         replaceCodeAreaTextToCurrent();
-        if (babystepTimer != null) {
+        if (exercises.getCurrentExercise().getConfig().getBabysteps().getValue().contains("True")) {
+            babystepTimer.setVisible(true);
             int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
             babystepTimer.startTimer(time);
         }
         state = State.TEST;
-        timeKeeper.changeStateTo(state);
+        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
+            timeKeeper.changeStateTo(state);
+        }
         this.redBUT.setDisable(true);
         this.refacBUT.setDisable(true);
         this.backredBUT.setDisable(true);
@@ -206,12 +206,15 @@ public class MainWindowController {
         saveCurrentFile();
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         replaceCodeAreaTextToCurrent();
-        if (babystepTimer != null) {
-            int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
-            babystepTimer.startTimer(time);
-        }
+
+        babystepTimer.setVisible(false);
+
         state = State.REFACTOR;
-        timeKeeper.changeStateTo(state);
+
+        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
+            timeKeeper.changeStateTo(state);
+        }
+
         this.greenBUT.setDisable(true);
         this.backredBUT.setDisable(true);
         this.redBUT.setDisable(false);
