@@ -30,7 +30,7 @@
         </VBox>
     </top>
    <right>
-      <VBox fx:id="rightContainer" prefHeight="555.0" spacing="10.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" visible="false" BorderPane.alignment="CENTER">
+      <VBox fx:id="rightContainer" fillWidth="false" prefHeight="555.0" prefWidth="150.0" spacing="10.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" visible="false" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#chartDisplay" prefHeight="25.0" prefWidth="230.0" text="Tracking Data" />
             <Label fx:id="lblDescription" text="Beschreibung: " wrapText="true" />

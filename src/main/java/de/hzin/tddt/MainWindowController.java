@@ -141,7 +141,7 @@ public class MainWindowController {
     }
 
     public Compilation compile() {
-        if(exercises == null){
+        if(exercises != null){
             // Compiler Integration
             saveCurrentFile();
             Compilation compiler = new Compilation(exercises, logTextArea, contents);
