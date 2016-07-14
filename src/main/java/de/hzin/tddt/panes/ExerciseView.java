@@ -46,6 +46,7 @@ public class ExerciseView extends TreeView {
                 controller.saveCurrentFile();
                 exercises.setCurrentIndex(selectedIndex);
                 controller.replaceCodeAreaTextToCurrent();
+                controller.lblDescription.setText("Beschreibung: " + exercises.getCurrentExercise().getDescription());
                 if (exercises.getCurrentExercise().getConfig().getBabysteps().getValue().contains("True")) {
                     controller.babystepTimer.setVisible(true);
                     controller.babystepTimer.startTimer(exercises.getCurrentExercise().getConfig().getBabysteps().getTime());

@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <exercises>
+    <currentIndex>0</currentIndex>
     <exercise name="Signumfunktion">
         <description>Die Vorzeichenfunktion oder Signumfunktion ist in der Mathematik eine Funktion, die einer reellen oder komplexen Zahl ihr Vorzeichen zuordnet.</description>
         <classes>
@@ -19,7 +21,8 @@
                     }
 
                     public static int signum(int n){
-                    // Implementieren Sie Ihre Loesung hier
+if(n&gt;=0) return 1;
+return -1;
                     }
                     }
                 </code>
@@ -33,35 +36,16 @@
                     public void testPositiveInput() {
                     assertEquals(1, Signum.signum(10));
                     }
-
-                    @Test
-                    public void testNegativeInput() {
-                    assertEquals(-1, Signum.signum(-110));
+		@Test
+                    public void testPositiveInput2() {
+                    assertEquals(-1, Signum.signum(1));
                     }
-
-                    @Test
-                    public void testZeroInput() {
-                    assertEquals(0, Signum.signum(0));
-                    }
-
-                    @Test
-                    public void testRandomPositiveInput() {
-                    int input = 1 + StdRandom.uniform(1000000);
-                    assertEquals(1, Signum.signum(input));
-                    }
-
-                    @Test
-                    public void testRandomNegativeInput() {
-                    int input = -1 - StdRandom.uniform(1000000);
-                    assertEquals(-1, Signum.signum(input));
-                    }
-
                     }
                 </test>
             </class>
         </classes>
         <config>
-            <babysteps value="False"/>
+            <babysteps value="False" time="0"/>
             <timetracking value="True"/>
         </config>
     </exercise>
@@ -76,7 +60,7 @@
                     * Compilation: javac PhiFunk.java
                     * Execution: java PhiFunk n
                     *
-                    * Eingabe: Integer n > 0
+                    * Eingabe: Integer n &gt; 0
                     * Ausgabe: phi(n), die Formatierung der Ausgabe ist Ihnen ueberlassen.
                     * Rueckgabe der Funktion phi(): Integer, der besagt, wie viele zu n teilerfremde
                     * positive natürliche Zahlen kleiner n es gibt.
@@ -158,7 +142,7 @@
             </class>
         </classes>
         <config>
-            <babysteps value="False"/>
+            <babysteps value="False" time="0"/>
             <timetracking value="True"/>
         </config>
     </exercise>
@@ -266,4 +250,5 @@
             <timetracking value="True"/>
         </config>
     </exercise>
+    <file>D:\Dokumente\Projekte\h4up1s4ach3-z4h13n-1m-n4m3n\Catalog\Blatt2.xml</file>
 </exercises>

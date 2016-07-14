@@ -1,6 +1,5 @@
 package de.hzin.tddt;
 
-import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.objects.State;
@@ -23,7 +22,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
 
@@ -31,6 +29,9 @@ public class MainWindowController {
 
     @FXML
     private BorderPane mainPane;
+
+    @FXML
+    public Label lblDescription;
 
     @FXML
     private Button redBUT;
@@ -55,7 +56,8 @@ public class MainWindowController {
     @FXML
     public TextArea logTextArea;
 
-
+    private boolean isFirstTestWritten = false;
+    private boolean isFirstTestWrittenButReturned = false;
     public Exercises exercises;
     private String[] contents = new String[2];
     private State state = State.TEST;
@@ -134,17 +136,27 @@ public class MainWindowController {
         }
     }
 
-    public void compile() {
+    public Compilation compile() {
         // Compiler Integration
         saveCurrentFile();
         Compilation compiler = new Compilation(exercises, logTextArea, contents);
         ErrorCounter currentErrorCounter = compiler.getErrorCounter();
         charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
         //compiler.runCompilation();
+        return compiler;
     }
 
 
     public void green() {
+        Compilation compilation = compile();
+        if(isFirstTestWritten){
+            if(compilation.hasCompileErrors()) return;
+            if(compilation.getNumberOfFailedTests()!=1) return;
+        }
+        else{
+            isFirstTestWrittenButReturned=true;
+        }
+        isFirstTestWritten=true;
         if (exercises == null) {
             logTextArea.setText("No exercise selected");
         } else {
@@ -170,8 +182,9 @@ public class MainWindowController {
         }
     }
 
-    public void backToRed(){
-        if (babystepTimer != null) babystepTimer.stopTimer();
+    public void backToRed() {
+        if(isFirstTestWrittenButReturned) isFirstTestWritten=false;
+        babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
         exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
@@ -192,6 +205,9 @@ public class MainWindowController {
     }
 
     public void red() {
+        Compilation compilation = compile();
+        if(compilation.hasCompileErrors()) return;
+        if(compilation.getNumberOfFailedTests()>0) return;
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
@@ -215,6 +231,10 @@ public class MainWindowController {
     }
 
     public void refac() {
+        isFirstTestWrittenButReturned=false;
+        Compilation compilation = compile();
+        if(compilation.hasCompileErrors()) return;
+        if(compilation.getNumberOfFailedTests()>0) return;
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");

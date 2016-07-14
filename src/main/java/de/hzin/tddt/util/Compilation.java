@@ -56,7 +56,6 @@ public class Compilation {
         else{
             textArea.setText("No exercise selected");
         }
-
     }
 
     public Compilation(String[] classNames, TextArea guiOut) {
@@ -65,6 +64,14 @@ public class Compilation {
         textArea.setStyle("-fx-font-family: monospace");
         readCus();
         runCompilation();
+    }
+
+    public boolean hasCompileErrors(){
+        return compilerResult.hasCompileErrors();
+    }
+
+    public int getNumberOfFailedTests(){
+        return testResult.getNumberOfFailedTests();
     }
 
     public void runCompilation() {

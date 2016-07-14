@@ -43,7 +43,7 @@
       <VBox fx:id="rightContainer" prefHeight="555.0" prefWidth="202.0" spacing="10.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#chartDisplay" prefHeight="25.0" prefWidth="230.0" text="Tracking Data" />
-            <Label prefHeight="27.0" prefWidth="122.0" text="X / Y passed" />
+            <Label fx:id="lblDescription" text="Beschreibung: " wrapText="true" />
             <Label contentDisplay="CENTER" prefHeight="35.0" prefWidth="200.0" text="Phase: " />
             <Label fx:id="aktphase" prefHeight="17.0" prefWidth="227.0" text="&quot;Aktuelle Phase&quot;" />
             <Button fx:id="compilationButton" mnemonicParsing="false" onAction="#compile" prefHeight="25.0" prefWidth="200.0" text="Compile!" />

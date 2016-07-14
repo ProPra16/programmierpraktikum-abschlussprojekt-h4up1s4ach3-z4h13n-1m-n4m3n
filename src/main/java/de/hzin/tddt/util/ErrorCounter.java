@@ -56,6 +56,10 @@ public class ErrorCounter {
         return computation;
     }
 
+    public int getErrorCount(){
+        return syntax + identifiers + computation + returnStatements + accessToStaticEntities;
+    }
+
     public int getIdentifiers() {
         return identifiers;
     }
