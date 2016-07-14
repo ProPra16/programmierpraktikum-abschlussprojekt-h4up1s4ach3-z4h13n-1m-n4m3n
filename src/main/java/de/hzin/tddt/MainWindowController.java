@@ -48,7 +48,7 @@ public class MainWindowController {
     private Button refacBUT;
 
     @FXML
-    private VBox rightContainer;
+    public VBox rightContainer;
 
     @FXML
     private Label aktphase;
@@ -129,11 +129,9 @@ public class MainWindowController {
         try {
             exercises = XMLHandler.unmarshal(file);
             exercises.setFile(file);
-            codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getTest().getCode());
             ExerciseView exerciseView = new ExerciseView(this);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
-            rightContainer.setVisible(true);
             this.redBUT.setDisable(true);
             this.refacBUT.setDisable(true);
             this.backredBUT.setDisable(true);
