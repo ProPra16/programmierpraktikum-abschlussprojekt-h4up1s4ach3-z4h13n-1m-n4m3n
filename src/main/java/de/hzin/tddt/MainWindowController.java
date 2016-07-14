@@ -60,7 +60,7 @@ public class MainWindowController {
     @FXML
     private VBox topContainer;
 
-    private Exercises exercises;
+    public Exercises exercises;
     private String[] contents = new String[2];
     private State state = State.TEST;
     private CodeArea codeArea = new CodeArea();
@@ -127,7 +127,7 @@ public class MainWindowController {
             exercises = XMLHandler.unmarshal(file);
             exercises.setFile(file);
             codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getTest().getCode());
-            ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
+            ExerciseView exerciseView = new ExerciseView(this);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
             this.redBUT.setDisable(true);

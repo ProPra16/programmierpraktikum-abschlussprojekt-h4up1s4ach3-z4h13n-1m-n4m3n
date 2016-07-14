@@ -61,4 +61,7 @@ public class Exercises {
     public void setFile(File file) {
         this.file = file;
     }
+    public File getFile(){
+        return file;
+    }
 }

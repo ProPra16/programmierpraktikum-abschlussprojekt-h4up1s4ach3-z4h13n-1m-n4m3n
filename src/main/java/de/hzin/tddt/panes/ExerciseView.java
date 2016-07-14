@@ -1,49 +1,71 @@
 package de.hzin.tddt.panes;
 
+import de.hzin.tddt.MainWindowController;
 import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
-import javafx.event.EventHandler;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import org.fxmisc.richtext.CodeArea;
 
 import java.util.List;
+import java.util.Optional;
 
-/**
- * @author Aron Weisermann
- */
-public class ExerciseView extends TitledPane {
+public class ExerciseView extends TreeView {
 
-    private TitledPane[] exercisePanes;
-
-
-    public ExerciseView(Exercises exercises, String exercisesName, CodeArea codeArea) {
+    public ExerciseView(MainWindowController controller) {
+        Exercises exercises = controller.exercises;
         List<Exercise> exerciseList = exercises.getExercisesList();
-        setText("Aktuelles " + exercisesName);
-        exercisePanes = new TitledPane[exerciseList.size()];
+        TreeItem rootNode = new TreeItem<>(exercises.getFile().getName());
+        ToggleGroup toggleGroup = new ToggleGroup();
+
         for (int i = 0; i < exerciseList.size(); i++) {
-            ListView<String> classesListView = new ListView();
-            for (ExerciseClass cur : exerciseList.get(i).getClasses()) {
-                classesListView.getItems().add(cur.getName());
-                classesListView.getItems().add(cur.getTest().getName());
+            Exercise exercise = exerciseList.get(i);
+            RadioButton exRadioBtn = new RadioButton(exercise.getName());
+            exRadioBtn.setToggleGroup(toggleGroup);
+
+            TreeItem<RadioButton> exNode = new TreeItem<>(exRadioBtn);
+            for (ExerciseClass exClass : exercise.getClasses()) {
+                TreeItem clNode = new TreeItem<>(exClass.getName());
+                TreeItem teNode = new TreeItem<>(exClass.getTest().getName());
+
+                exNode.getChildren().addAll(clNode, teNode);
             }
-            int curI = i;
-            classesListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    exercises.setCurrentIndex(curI);
-                    if(classesListView.getSelectionModel().getSelectedItem().contains("Test"))
-                        codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getTest().getCode());
-                    else
-                        codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getCode());
+
+            exRadioBtn.addEventFilter(MouseEvent.MOUSE_PRESSED, (MouseEvent event) -> {
+                if (isChangeExerciseConfirmed()) {
+                    exRadioBtn.setSelected(true);
+                    event.consume();
                 }
             });
-            exercisePanes[i] = new TitledPane("Übung: " + exerciseList.get(i).getName(), classesListView);
+
+            rootNode.getChildren().add(exNode);
         }
-        VBox group = new VBox();
-        group.getChildren().addAll(exercisePanes);
-        setContent(group);
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (toggleGroup.getSelectedToggle() != null) {
+                int selectedIndex = toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
+                controller.saveCurrentFile();
+                exercises.setCurrentIndex(selectedIndex);
+                controller.replaceCodeAreaTextToCurrent();
+            }
+        });
+
+        rootNode.setExpanded(true);
+        setRoot(rootNode);
+    }
+
+    public boolean isChangeExerciseConfirmed() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Sind Sie sicher, dass Sie die Übung wechseln möchten?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        System.out.println(result.get());
+        if (result.get().equals(ButtonType.OK)) {
+            System.out.println(true);
+            return true;
+        } else {
+            System.out.println(false);
+            return false;
+        }
     }
 }
