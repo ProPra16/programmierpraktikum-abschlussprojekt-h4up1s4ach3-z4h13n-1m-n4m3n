@@ -3,24 +3,34 @@ package de.hzin.tddt.panes;
 import de.hzin.tddt.objects.Exercise;
 import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
-import javafx.event.EventHandler;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import org.fxmisc.richtext.CodeArea;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 
 import java.util.List;
 
 /**
  * @author Aron Weisermann
  */
-public class ExerciseView extends TitledPane {
+public class ExerciseView extends TreeView<String> {
+    public ExerciseView(Exercises exercises) {
+        List<Exercise> exerciseList = exercises.getExercisesList();
+        TreeItem<String> rootNode =
+                new TreeItem<String>(exercises.getFile().getName());
+        rootNode.setExpanded(true);
 
-    private TitledPane[] exercisePanes;
+        for (Exercise exercise : exerciseList) {
+            TreeItem<String> exNode = new TreeItem<String>(exercise.getName());
+            for (ExerciseClass exClass : exercise.getClasses()) {
+                TreeItem<String> clNode = new TreeItem<String>(exClass.getName());
+                TreeItem<String> teNode = new TreeItem<String>(exClass.getTest().getName());
+                exNode.getChildren().addAll(clNode, teNode);
+            }
+            rootNode.getChildren().add(exNode);
+        }
+        setRoot(rootNode);
+    }
 
-
-    public ExerciseView(Exercises exercises, String exercisesName, CodeArea codeArea) {
+    /*public ExerciseView(Exercises exercises, String exercisesName, CodeArea codeArea) {
         List<Exercise> exerciseList = exercises.getExercisesList();
         setText("Aktuelles " + exercisesName);
         exercisePanes = new TitledPane[exerciseList.size()];
@@ -45,5 +55,5 @@ public class ExerciseView extends TitledPane {
         VBox group = new VBox();
         group.getChildren().addAll(exercisePanes);
         setContent(group);
-    }
+    }*/
 }
