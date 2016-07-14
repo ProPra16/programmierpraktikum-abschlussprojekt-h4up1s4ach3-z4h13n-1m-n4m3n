@@ -5,10 +5,7 @@ import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.ExerciseTest;
 import de.hzin.tddt.objects.Exercises;
 import javafx.scene.control.TextArea;
-import vk.core.api.CompilationUnit;
-import vk.core.api.CompileError;
-import vk.core.api.CompilerResult;
-import vk.core.api.TestResult;
+import vk.core.api.*;
 import vk.core.internal.InternalCompiler;
 
 import java.util.ArrayList;
@@ -87,15 +84,20 @@ public class Compilation {
             }
             textArea.setText(errors);
         } else {
+            String text = "";
+            String textNumbers = "";
             if (textArea != null) {
-                String text = String.format("Successfully Compiled\nSuccessful Tests:%4d\nFailed Tests:%8d", testResult.getNumberOfSuccessfulTests(), testResult.getNumberOfFailedTests());
-                textArea.setText(text);
+                textNumbers = String.format("Successfully Compiled\nSuccessful Tests:%4d\nFailed Tests:%8d", testResult.getNumberOfSuccessfulTests(), testResult.getNumberOfFailedTests());
             } else {
                 System.out.println("Successfully Compiled\nSuccessful Tests:" + testResult.getNumberOfSuccessfulTests() + "\nFailed Tests:" + testResult.getNumberOfFailedTests());
             }
             if (testResult.getNumberOfFailedTests() >= 1) {
-                System.out.println(testResult.getTestFailures());
+                Collection<TestFailure> testFailures = testResult.getTestFailures();
+                for(TestFailure i : testFailures){
+                    text = text + "[" + i.getTestClassName() + "~" + i.getMethodName() + "] " + i.getMessage() + "\n";
+                }
             }
+            textArea.setText(text + textNumbers);
         }
     }
 
