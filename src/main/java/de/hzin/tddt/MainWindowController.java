@@ -136,13 +136,16 @@ public class MainWindowController {
     }
 
     public Compilation compile() {
-        // Compiler Integration
-        saveCurrentFile();
-        Compilation compiler = new Compilation(exercises, logTextArea, contents);
-        ErrorCounter currentErrorCounter = compiler.getErrorCounter();
-        charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
-        //compiler.runCompilation();
-        return compiler;
+        if(exercises == null){
+            // Compiler Integration
+            saveCurrentFile();
+            Compilation compiler = new Compilation(exercises, logTextArea, contents);
+            ErrorCounter currentErrorCounter = compiler.getErrorCounter();
+            charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
+            //compiler.runCompilation();
+            return compiler;
+        }
+        else return null;
     }
 
 
