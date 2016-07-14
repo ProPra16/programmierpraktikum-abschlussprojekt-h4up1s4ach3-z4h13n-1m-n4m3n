@@ -47,10 +47,7 @@ public class Compilation {
                 cusList.add(new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false));
                 cusList.add(new CompilationUnit(currentTest.getName(), currentTest.getCode(), true));
             }
-
-
             cus = cusList.toArray(new CompilationUnit[cusList.size()]);
-            System.out.println(cus.length);
             runCompilation();
         }
         else{
