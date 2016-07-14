@@ -68,12 +68,9 @@ public class ExerciseView extends TreeView {
         alert.setHeaderText("Sind Sie sicher, dass Sie die Übung wechseln möchten?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        System.out.println(result.get());
         if (result.get().equals(ButtonType.OK)) {
-            System.out.println(true);
             return true;
         } else {
-            System.out.println(false);
             return false;
         }
     }
