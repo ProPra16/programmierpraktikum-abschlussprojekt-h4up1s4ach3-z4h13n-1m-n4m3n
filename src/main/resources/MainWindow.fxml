@@ -26,7 +26,7 @@
                    <Menu mnemonicParsing="false" text="File">
                        <items>
                            <MenuItem fx:id="menuOpenExercise" mnemonicParsing="false" onAction="#onMenuOpenExercisePressed" text="Open exercise" />
-                           <MenuItem mnemonicParsing="false" text="Save Status" />
+                           <MenuItem mnemonicParsing="false" text="Save" />
                        </items>
                    </Menu>
                    <Menu mnemonicParsing="false" text="Edit">

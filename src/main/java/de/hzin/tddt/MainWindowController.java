@@ -239,5 +239,4 @@ public class MainWindowController {
         Charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
     }
 
-
 }
