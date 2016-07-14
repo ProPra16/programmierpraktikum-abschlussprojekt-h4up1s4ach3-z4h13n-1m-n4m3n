@@ -151,7 +151,7 @@ public class MainWindowController {
         aktphase.setText("GREEN ; Bearbeite deinen Code");
         aktphase.setStyle("-fx-text-fill: green;");
         saveCurrentFile();
-        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(true);
+        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
         replaceCodeAreaTextToCurrent();
         if (babystepTimer != null) {
             int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
@@ -201,6 +201,7 @@ public class MainWindowController {
         this.greenBUT.setDisable(true);
         this.backredBUT.setDisable(true);
         this.redBUT.setDisable(false);
+        this.refacBUT.setDisable(true);
 
 
     }
