@@ -6,7 +6,10 @@ import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.BabystepTimer;
 import de.hzin.tddt.panes.Charts;
 import de.hzin.tddt.panes.ExerciseView;
-import de.hzin.tddt.util.*;
+import de.hzin.tddt.util.Compilation;
+import de.hzin.tddt.util.ErrorCounter;
+import de.hzin.tddt.util.TimeKeeper;
+import de.hzin.tddt.util.XMLHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,7 +48,7 @@ public class MainWindowController {
     private Button refacBUT;
 
     @FXML
-    private VBox rightContainer;
+    public VBox rightContainer;
 
     @FXML
     private Label aktphase;
@@ -86,7 +89,7 @@ public class MainWindowController {
     }
 
     public void onSaveFilePressed() {
-        if(exercises!=null){
+        if (exercises != null) {
             exercises.saveExercises();
             logTextArea.appendText("Erfolgreich unter " + exercises.getFile().getAbsolutePath() + " gespeichert.");
         }
@@ -126,11 +129,9 @@ public class MainWindowController {
         try {
             exercises = XMLHandler.unmarshal(file);
             exercises.setFile(file);
-            codeArea.replaceText(exercises.getCurrentExercise().getClasses().get(0).getTest().getCode());
             ExerciseView exerciseView = new ExerciseView(this);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
-            rightContainer.setVisible(true);
             this.redBUT.setDisable(true);
             this.refacBUT.setDisable(true);
             this.backredBUT.setDisable(true);
@@ -141,7 +142,7 @@ public class MainWindowController {
     }
 
     public Compilation compile() {
-        if(exercises != null){
+        if (exercises != null) {
             // Compiler Integration
             saveCurrentFile();
             Compilation compiler = new Compilation(exercises, logTextArea, contents);
@@ -149,16 +150,21 @@ public class MainWindowController {
             charts.getErrorCounter().addErrorCounter(currentErrorCounter.getSyntax(), currentErrorCounter.getIdentifiers(), currentErrorCounter.getComputation(), currentErrorCounter.getReturnStatements(), currentErrorCounter.getAccessToStaticEntities());
             //compiler.runCompilation();
             return compiler;
-        }
-        else return null;
+        } else return null;
     }
 
 
     public void green() {
         Compilation compilation = compile();
         if (isFirstTestWritten) {
-            if (compilation.hasCompileErrors()) return;
-            if (compilation.getNumberOfFailedTests() != 1) return;
+            if (compilation.hasCompileErrors()) {
+                logTextArea.appendText("\nError: Der Code muss kompilieren.");
+                return;
+            }
+            if (compilation.getNumberOfFailedTests() != 1){
+                logTextArea.appendText("\nError: Es muss genau einen fehlschlagenden Test geben.");
+                return;
+            }
         } else {
             isFirstTestWrittenButReturned = true;
         }
@@ -178,9 +184,8 @@ public class MainWindowController {
                 babystepTimer.startTimer(time);
             }
             state = State.CODE;
-            if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-                timeKeeper.changeStateTo(state);
-            }
+            timeKeeper.changeStateTo(state);
+
             this.backredBUT.setDisable(false);
             this.redBUT.setDisable(true);
             this.greenBUT.setDisable(true);
@@ -201,9 +206,8 @@ public class MainWindowController {
             babystepTimer.startTimer(time);
         }
         state = State.TEST;
-        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-            timeKeeper.changeStateTo(state);
-        }
+        timeKeeper.changeStateTo(state);
+
         this.redBUT.setDisable(true);
         this.refacBUT.setDisable(true);
         this.backredBUT.setDisable(true);
@@ -212,8 +216,14 @@ public class MainWindowController {
 
     public void red() {
         Compilation compilation = compile();
-        if (compilation.hasCompileErrors()) return;
-        if (compilation.getNumberOfFailedTests() > 0) return;
+        if (compilation.hasCompileErrors()) {
+            logTextArea.appendText("\nError: Der Code muss kompilieren.");
+            return;
+        }
+        if (compilation.getNumberOfFailedTests() > 0){
+            logTextArea.appendText("\nError: Es darf keinen fehlschlagenden Test geben.");
+            return;
+        }
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
@@ -226,9 +236,7 @@ public class MainWindowController {
             babystepTimer.startTimer(time);
         }
         state = State.TEST;
-        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-            timeKeeper.changeStateTo(state);
-        }
+        timeKeeper.changeStateTo(state);
         this.redBUT.setDisable(true);
         this.refacBUT.setDisable(true);
         this.backredBUT.setDisable(true);
@@ -238,8 +246,14 @@ public class MainWindowController {
 
     public void refac() {
         Compilation compilation = compile();
-        if (compilation.hasCompileErrors()) return;
-        if (compilation.getNumberOfFailedTests() > 0) return;
+        if (compilation.hasCompileErrors()) {
+            logTextArea.appendText("\nError: Der Code muss kompilieren.");
+            return;
+        }
+        if (compilation.getNumberOfFailedTests() > 0){
+            logTextArea.appendText("\nError: Es darf keinen fehlschlagenden Test geben.");
+            return;
+        }
         isFirstTestWrittenButReturned = false;
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("REFRACTOR ; Code verbessern");
@@ -252,9 +266,8 @@ public class MainWindowController {
 
         state = State.REFACTOR;
 
-        if (exercises.getCurrentExercise().getConfig().getTimetracking().getValue().contains("True")) {
-            timeKeeper.changeStateTo(state);
-        }
+        timeKeeper.changeStateTo(state);
+
 
         this.greenBUT.setDisable(true);
         this.backredBUT.setDisable(true);
