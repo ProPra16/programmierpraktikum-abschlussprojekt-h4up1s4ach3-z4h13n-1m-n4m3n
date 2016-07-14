@@ -18,9 +18,7 @@ import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
 
 import javax.xml.bind.JAXBException;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 
 import static de.hzin.tddt.JavaKeywordsAsync.computeHighlighting;
@@ -48,22 +46,23 @@ public class MainWindowController {
     @FXML
     private VBox rightContainer;
 
-    public BabystepTimer babystepTimer;
-
     @FXML
     private Label aktphase;
 
     @FXML
     public TextArea logTextArea;
 
+
+    public BabystepTimer babystepTimer;
+    private CodeArea codeArea = new CodeArea();
+    private TimeKeeper timeKeeper = new TimeKeeper();
+    private Charts charts = new Charts();
+
     private boolean isFirstTestWritten = false;
     private boolean isFirstTestWrittenButReturned = false;
     public Exercises exercises;
     private String[] contents = new String[2];
     private State state = State.TEST;
-    private CodeArea codeArea = new CodeArea();
-    private TimeKeeper timeKeeper = new TimeKeeper();
-    private Charts charts = new Charts();
 
     @FXML
     public void initialize() throws URISyntaxException {
@@ -149,14 +148,13 @@ public class MainWindowController {
 
     public void green() {
         Compilation compilation = compile();
-        if(isFirstTestWritten){
-            if(compilation.hasCompileErrors()) return;
-            if(compilation.getNumberOfFailedTests()!=1) return;
+        if (isFirstTestWritten) {
+            if (compilation.hasCompileErrors()) return;
+            if (compilation.getNumberOfFailedTests() != 1) return;
+        } else {
+            isFirstTestWrittenButReturned = true;
         }
-        else{
-            isFirstTestWrittenButReturned=true;
-        }
-        isFirstTestWritten=true;
+        isFirstTestWritten = true;
         if (exercises == null) {
             logTextArea.setText("No exercise selected");
         } else {
@@ -183,7 +181,7 @@ public class MainWindowController {
     }
 
     public void backToRed() {
-        if(isFirstTestWrittenButReturned) isFirstTestWritten=false;
+        if (isFirstTestWrittenButReturned) isFirstTestWritten = false;
         babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
@@ -206,8 +204,8 @@ public class MainWindowController {
 
     public void red() {
         Compilation compilation = compile();
-        if(compilation.hasCompileErrors()) return;
-        if(compilation.getNumberOfFailedTests()>0) return;
+        if (compilation.hasCompileErrors()) return;
+        if (compilation.getNumberOfFailedTests() > 0) return;
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
@@ -231,10 +229,10 @@ public class MainWindowController {
     }
 
     public void refac() {
-        isFirstTestWrittenButReturned=false;
         Compilation compilation = compile();
-        if(compilation.hasCompileErrors()) return;
-        if(compilation.getNumberOfFailedTests()>0) return;
+        if (compilation.hasCompileErrors()) return;
+        if (compilation.getNumberOfFailedTests() > 0) return;
+        isFirstTestWrittenButReturned = false;
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("REFRACTOR ; Code verbessern");
         aktphase.setStyle("-fx-text-fill: black;");
