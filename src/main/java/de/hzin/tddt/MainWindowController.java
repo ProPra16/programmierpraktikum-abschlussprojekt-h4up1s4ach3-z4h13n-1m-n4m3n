@@ -238,19 +238,6 @@ public class MainWindowController {
 
     }
 
-    public void openfile() {
-        File txtfile = new File("Help.txt");
-        if (txtfile.exists()) {
-            if (Desktop.isDesktopSupported()) {
-                try {
-                    Desktop.getDesktop().open(txtfile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     public void chartDisplay() {
         timeKeeper.refreshTime();
         charts.display(timeKeeper.getTimeTest(), timeKeeper.getTimeCode(), timeKeeper.getTimeRefactor());
