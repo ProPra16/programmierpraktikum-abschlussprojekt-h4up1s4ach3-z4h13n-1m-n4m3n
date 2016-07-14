@@ -1,5 +1,6 @@
 package de.hzin.tddt;
 
+import de.hzin.tddt.panes.ConfirmBox;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,4 +1,4 @@
-package de.hzin.tddt;
+package de.hzin.tddt.panes;
 
 
 import javafx.stage.*;
@@ -7,8 +7,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
-class ConfirmBox {
-    private static boolean answer;
+public class ConfirmBox {
+    static boolean answer;
     static boolean display(String title, String message){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
