@@ -81,7 +81,6 @@ public class MainWindowController {
         this.refacBUT.setDisable(true);
         this.backredBUT.setDisable(true);
         this.greenBUT.setDisable(false);
-        //topContainer.getChildren().add(new Toolbar());
     }
 
     public void onSaveFilePressed() {
