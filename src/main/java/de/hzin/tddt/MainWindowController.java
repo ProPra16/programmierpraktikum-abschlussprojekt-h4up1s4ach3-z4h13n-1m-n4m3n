@@ -132,6 +132,10 @@ public class MainWindowController {
             ExerciseView exerciseView = new ExerciseView(exercises, file.getName(), codeArea);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
+            this.redBUT.setDisable(true);
+            this.refacBUT.setDisable(true);
+            this.backredBUT.setDisable(true);
+            this.greenBUT.setDisable(false);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -152,22 +156,28 @@ public class MainWindowController {
 
 
     public void green() {
-        babystepTimer.stopTimer();
-        aktphase.setText("GREEN ; Bearbeite deinen Code");
-        aktphase.setStyle("-fx-text-fill: green;");
-        saveCurrentFile();
-        exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
-        replaceCodeAreaTextToCurrent();
-        if (babystepTimer != null) {
-            int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
-            babystepTimer.startTimer(time);
+        if(exercises == null){
+            logTextArea.setText("No exercise selected");
         }
-        state = State.CODE;
-        timeKeeper.changeStateTo(state);
-        this.backredBUT.setDisable(false);
-        this.redBUT.setDisable(true);
-        this.greenBUT.setDisable(true);
-        this.refacBUT.setDisable(false);
+        else {
+            babystepTimer.stopTimer();
+            aktphase.setText("GREEN ; Bearbeite deinen Code");
+            aktphase.setStyle("-fx-text-fill: green;");
+            saveCurrentFile();
+            exercises.getCurrentExercise().getCurrentClass().setIsCurrentTest(false);
+            replaceCodeAreaTextToCurrent();
+            if (babystepTimer != null) {
+                int time = exercises.getCurrentExercise().getConfig().getBabysteps().getTime();
+                babystepTimer.startTimer(time);
+            }
+            state = State.CODE;
+            timeKeeper.changeStateTo(state);
+            this.backredBUT.setDisable(false);
+            this.redBUT.setDisable(true);
+            this.greenBUT.setDisable(true);
+            this.refacBUT.setDisable(false);
+        }
+
     }
 
     public void red() {
