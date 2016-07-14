@@ -159,8 +159,14 @@ public class MainWindowController {
     public void green() {
         Compilation compilation = compile();
         if (isFirstTestWritten) {
-            if (compilation.hasCompileErrors()) return;
-            if (compilation.getNumberOfFailedTests() != 1) return;
+            if (compilation.hasCompileErrors()) {
+                logTextArea.appendText("\nError: Der Code muss kompilieren.");
+                return;
+            }
+            if (compilation.getNumberOfFailedTests() != 1){
+                logTextArea.appendText("\nError: Es muss genau einen fehlschlagenden Test geben.");
+                return;
+            }
         } else {
             isFirstTestWrittenButReturned = true;
         }
@@ -212,8 +218,14 @@ public class MainWindowController {
 
     public void red() {
         Compilation compilation = compile();
-        if (compilation.hasCompileErrors()) return;
-        if (compilation.getNumberOfFailedTests() > 0) return;
+        if (compilation.hasCompileErrors()) {
+            logTextArea.appendText("\nError: Der Code muss kompilieren.");
+            return;
+        }
+        if (compilation.getNumberOfFailedTests() > 0){
+            logTextArea.appendText("\nError: Es darf keinen fehlschlagenden Test geben.");
+            return;
+        }
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("RED ; Bearbeite deine Tests");
         aktphase.setStyle("-fx-text-fill: red;");
@@ -236,8 +248,14 @@ public class MainWindowController {
 
     public void refac() {
         Compilation compilation = compile();
-        if (compilation.hasCompileErrors()) return;
-        if (compilation.getNumberOfFailedTests() > 0) return;
+        if (compilation.hasCompileErrors()) {
+            logTextArea.appendText("\nError: Der Code muss kompilieren.");
+            return;
+        }
+        if (compilation.getNumberOfFailedTests() > 0){
+            logTextArea.appendText("\nError: Es darf keinen fehlschlagenden Test geben.");
+            return;
+        }
         isFirstTestWrittenButReturned = false;
         if (babystepTimer != null) babystepTimer.stopTimer();
         aktphase.setText("REFRACTOR ; Code verbessern");
