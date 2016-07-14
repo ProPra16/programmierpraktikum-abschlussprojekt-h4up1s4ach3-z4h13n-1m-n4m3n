@@ -6,12 +6,14 @@ import de.hzin.tddt.objects.ExerciseTest;
 import de.hzin.tddt.objects.Exercises;
 import javafx.scene.control.TextArea;
 import vk.core.api.CompilationUnit;
+import vk.core.api.CompileError;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
 import vk.core.internal.InternalCompiler;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -26,6 +28,7 @@ public class Compilation {
     private TextArea textArea;
     private List<CompilationUnit> cusList = new ArrayList<>();
     private List<CompilationUnit> additionalResources = new ArrayList();
+    private ErrorCounter errorCounter = new ErrorCounter();
 
     public Compilation(Exercises exercises, TextArea inTextArea, String[] contents) {
         addAdditionalResource("StdRandom");
@@ -73,7 +76,11 @@ public class Compilation {
         if (compilerResult.hasCompileErrors()) {
             String errors = "";
             for (int i = 0; i < cus.length; i++) {
-                errors = errors + (compilerResult.getCompilerErrorsForCompilationUnit(cus[i])) + "\n";
+                Collection<CompileError> currentErrorList = compilerResult.getCompilerErrorsForCompilationUnit(cus[i]);
+                for(CompileError currentError : currentErrorList){
+                    errors = errors + "[Zeile:" + currentError.getLineNumber() + "]" + currentError.toString() + "\n";
+                    errorCounter.countError(currentError.toString());
+                }
             }
             textArea.setText(errors);
         } else {
@@ -118,5 +125,9 @@ public class Compilation {
             e.printStackTrace();
         }
         additionalResources.add(new CompilationUnit(addWebClass,file.getContent(),false));
+    }
+
+    public ErrorCounter getErrorCounter() {
+        return errorCounter;
     }
 }
