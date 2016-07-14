@@ -85,7 +85,10 @@ public class MainWindowController {
     }
 
     public void onSaveFilePressed() {
-        exercises.saveExercises();
+        if(exercises!=null){
+            exercises.saveExercises();
+            logTextArea.appendText("Erfolgreich unter " + exercises.getFile().getAbsolutePath() + " gespeichert.");
+        }
     }
 
     public void onMenuOpenExercisePressed() {
@@ -126,6 +129,7 @@ public class MainWindowController {
             ExerciseView exerciseView = new ExerciseView(this);
             mainPane.setLeft(exerciseView);
             timeKeeper = new TimeKeeper();
+            rightContainer.setVisible(true);
             this.redBUT.setDisable(true);
             this.refacBUT.setDisable(true);
             this.backredBUT.setDisable(true);
