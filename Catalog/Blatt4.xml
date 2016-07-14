@@ -23,8 +23,7 @@ vor und direkt nach dieser Sequenz kleiner sein sollen.*/
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class PlateauTest {
-
-@Test
+    @Test
     //Implementieren Sie ihre Lösung hier
 }
                 </test>
@@ -55,7 +54,6 @@ den Median ausgibt*/
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class MedianTest {
-
     @Test
     //Implementieren Sie ihre Lösung hier
 }

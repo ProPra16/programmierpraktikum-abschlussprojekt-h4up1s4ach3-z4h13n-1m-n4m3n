@@ -19,7 +19,6 @@ zu Fahrenheit bzw. umgekehrt konvertiert*/
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class FCconverterTest {
-
     @Test
     //Implementieren Sie ihre Lösung hier
 }
@@ -51,7 +50,6 @@ Scrheiben Sie eine Methode, die für en übergebenes Jahr
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class LeapYearTest {
-
     @Test
     //Implementieren Sie ihre Lösung hier
 }
