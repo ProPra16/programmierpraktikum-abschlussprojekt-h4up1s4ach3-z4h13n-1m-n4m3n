@@ -4,6 +4,7 @@ import de.hzin.tddt.objects.ExerciseClass;
 import de.hzin.tddt.objects.Exercises;
 import de.hzin.tddt.objects.State;
 import de.hzin.tddt.panes.BabystepTimer;
+import de.hzin.tddt.panes.Charts;
 import de.hzin.tddt.panes.ExerciseView;
 import de.hzin.tddt.util.*;
 import javafx.fxml.FXML;

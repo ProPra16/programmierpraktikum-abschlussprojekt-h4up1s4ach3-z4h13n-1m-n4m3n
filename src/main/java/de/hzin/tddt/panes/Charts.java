@@ -1,9 +1,10 @@
-package de.hzin.tddt.util;
+package de.hzin.tddt.panes;
 
 /**
  * Created by constantin on 12.07.16.
  */
 
+import de.hzin.tddt.util.ErrorCounter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
