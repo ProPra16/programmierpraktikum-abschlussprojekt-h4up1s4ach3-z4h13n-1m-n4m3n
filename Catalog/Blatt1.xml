@@ -7,9 +7,7 @@
             <class name="RomanNumberConverter">
                 <code>
 public class RomanNumberConverter {
-    public static int test(int c){
-     return c;
-    }
+
 }
                 </code>
                 <test name="RomanNumberConverterTest">
@@ -42,7 +40,7 @@ import org.junit.Test;
 public class RomanNumberConverterTest {
     @Test
     public void testSomething() {
-        assertEquals(1, RomanNumbersConverter.test(1));
+
     }
 }
                 </test>
