@@ -45,7 +45,7 @@ public class Compilation {
                 cusList.add(i);
             }
             for (int i = 1; i <= currentClasses.size(); i++) {
-                System.out.println(currentClasses.get(i-1).getName());
+                //System.out.println(currentClasses.get(i-1).getName());
                 ExerciseTest currentTest = currentClasses.get(i-1).getTest();
                 cusList.add(new CompilationUnit(currentClasses.get(i-1).getName(), currentClasses.get(i-1).getCode(), false));
                 cusList.add(new CompilationUnit(currentTest.getName(), currentTest.getCode(), true));
