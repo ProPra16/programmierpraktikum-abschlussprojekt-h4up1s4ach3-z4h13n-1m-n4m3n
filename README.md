@@ -6,4 +6,4 @@ Travis CI Status: [![Build Status](https://travis-ci.org/ProPra16/programmierpra
 Aron Weisermann - Velomaniac  </br>
 Julius Kliss - jkliss </br>
 Rafael Pinela Da Silva - RafaelPin </br>
-Constantin - constantin / goldgraeber </br>
+Constantin Eiteneuer - goldgraeber </br>
